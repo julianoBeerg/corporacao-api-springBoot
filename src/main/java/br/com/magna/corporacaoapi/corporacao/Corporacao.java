@@ -1,6 +1,8 @@
 package br.com.magna.corporacaoapi.corporacao;
 
+import br.com.magna.corporacaoapi.categoria.Categoria;
 import br.com.magna.corporacaoapi.instituicao.Instituicao;
+import br.com.magna.corporacaoapi.porte.Porte;
 import br.com.magna.corporacaoapi.sede.Sede;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -54,6 +56,14 @@ public class Corporacao {
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "instituicao_id")
 	private Instituicao instituicao;
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "porte_id")
+	private Porte porte;
+	
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "categoria_id")
+	private Categoria categoria;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "sede_id")
@@ -69,6 +79,8 @@ public class Corporacao {
 		this.faturamento = dados.faturamento();
 		this.numFuncionarios = dados.numFuncionarios();
 		this.instituicao = new Instituicao(dados.dadosCadastrarInstituicao());
+		this.porte = new Porte(dados.dadosCadastrarPorte());
+		this.categoria = new Categoria(dados.dadosCadastrarCategoria());
 		this.sede = new Sede(dados.dadosCadastrarSede());
 	}
 
@@ -84,6 +96,12 @@ public class Corporacao {
 		}
 		if (dados.dadosAtualizarInstituicao() != null) {
 			this.instituicao.atualizarInformacoesInstituicao(dados.dadosAtualizarInstituicao());
+		}
+		if (dados.dadosAtualizarPorte() != null) {
+			this.porte.atualizarInformacoesPorte(dados.dadosAtualizarPorte());
+		}
+		if (dados.dadosAtualizarCategoria() != null) {
+			this.categoria.atualizarInformacoesCategoria(dados.dadosAtualizarCategoria());
 		}
 		if (dados.dadosAtualizarSede() != null) {
 			this.sede.atualizarInformacoesSede(dados.dadosAtualizarSede());
