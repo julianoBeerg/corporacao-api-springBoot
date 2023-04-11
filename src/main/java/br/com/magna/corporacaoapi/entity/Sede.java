@@ -19,25 +19,25 @@ public class Sede {
 	@Column(name = "PK_ID_SEDE")
 	private Long id;
 
-	@Column(name = "VAR_PAIS")
+	@Column(name = "VAR_PAIS", nullable=false)
 	private String pais;
 
-	@Column(name = "VAR_UF")
+	@Column(name = "VAR_UF", nullable=false)
 	private String uf;
 
-	@Column(name = "VAR_CIDADE")
+	@Column(name = "VAR_CIDADE", nullable=false)
 	private String cidade;
 	
-	@Column(name = "VAR_LOGRADOURO")
+	@Column(name = "VAR_LOGRADOURO", nullable=false)
 	private String logradouro;
 
-	@Column(name = "INT_NUMERO")
+	@Column(name = "INT_NUMERO", nullable=false)
 	private Integer numero;
 
-	@Column(name = "INT_CEP")
+	@Column(name = "INT_CEP", nullable=false)
 	private Integer cep;
 
-	@Column(name = "VAR_COMPLEMENTO")
+	@Column(name = "VAR_COMPLEMENTO", nullable=false)
 	private String complemento;
 
 	public Sede(DadosCadastrarSede dados) {

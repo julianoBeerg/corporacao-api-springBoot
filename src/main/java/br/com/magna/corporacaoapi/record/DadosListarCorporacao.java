@@ -10,7 +10,7 @@ import br.com.magna.corporacaoapi.entity.Sede;
 public record DadosListarCorporacao(
 
 		Long id, String cnpj, String razaoSocial, String nomeFantasia, Boolean tipoPublico, Boolean multinacional,
-		Boolean cnpjAtivo, Double faturamento, Integer numFuncionarios, Instituicao instituicao, Porte porte, 
+		Boolean cnpjAtivo, Double faturamento, Integer numFuncionarios, Instituicao instituicao, Porte porte,
 		AtividadeComercial atividadeComercial, NaturezaJuridica naturezaJuridica, Sede sede) {
 
 	public DadosListarCorporacao(Corporacao corporacao) {

@@ -19,10 +19,10 @@ public class AtividadeComercial {
 	@Column(name = "PK_ID_ATIVIDADE_COMERCIAL")
 	private Long id;
 	
-	@Column(name = "INT_CODIGO_ATIVIDADE_COMERCIAL")
+	@Column(name = "INT_CODIGO_ATIVIDADE_COMERCIAL", nullable=false)
 	private Integer codigoAtividadeComercial;
 
-	@Column(name = "VAR_DESCRICAO_ATIVIDADE_COMERCIAL")
+	@Column(name = "VAR_DESCRICAO_ATIVIDADE_COMERCIAL", nullable=false)
 	private String descricaoAtividadeComercial;
 
 	public AtividadeComercial(DadosCadastrarAtividadeComercial dados) {

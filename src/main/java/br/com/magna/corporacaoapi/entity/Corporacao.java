@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -22,28 +23,28 @@ public class Corporacao {
 	@Column(name = "PK_ID_CORPORACAO")
 	private Long id;
 
-	@Column(name = "VAR_CNPJ", length = 18)
+	@Column(name = "VAR_CNPJ", length = 18, nullable = false)
 	private String cnpj;
 
-	@Column(name = "VAR_RAZAO_SOCIAL")
+	@Column(name = "VAR_RAZAO_SOCIAL", nullable = false)
 	private String razaoSocial;
 
-	@Column(name = "VAR_NOME_FANTASIA")
+	@Column(name = "VAR_NOME_FANTASIA", nullable = false)
 	private String nomeFantasia;
 
-	@Column(name = "BOOL_TIPO_PUBLICO")
+	@Column(name = "BOOL_TIPO_PUBLICO", nullable = false)
 	private Boolean tipoPublico;
 
-	@Column(name = "VAR_MULTINACIONAL")
+	@Column(name = "VAR_MULTINACIONAL", nullable = false)
 	private Boolean multinacional;
 
-	@Column(name = "BOOL_CNPJ_ATIVO")
+	@Column(name = "BOOL_CNPJ_ATIVO", nullable = false)
 	private Boolean cnpjAtivo;
 
-	@Column(name = "DECIMAL_FATURAMENTO")
+	@Column(name = "DECIMAL_FATURAMENTO", nullable = false)
 	private Double faturamento;
 
-	@Column(name = "INT_NUMERO_FUNCIONARIOS")
+	@Column(name = "INT_NUMERO_FUNCIONARIOS", nullable = false)
 	private Integer numFuncionarios;
 
 	@OneToOne(cascade = CascadeType.PERSIST)

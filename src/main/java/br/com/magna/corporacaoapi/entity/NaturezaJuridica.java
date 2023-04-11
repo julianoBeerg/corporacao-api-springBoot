@@ -15,14 +15,14 @@ import jakarta.validation.Valid;
 public class NaturezaJuridica {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "PK_ID_NATUREZA_JURIDICA")
 	private Long id;
 
-	@Column(name = "INT_CODIGO_NATUREZA_JURIDICA")
+	@Column(name = "INT_CODIGO_NATUREZA_JURIDICA", nullable=false)
 	private Integer codigoNaturezaJuridica;
 
-	@Column(name = "VAR_DESCRICAO_NATUREZA_JURIDICA")
+	@Column(name = "VAR_DESCRICAO_NATUREZA_JURIDICA", nullable=false)
 	private String descricaoNaturezaJuridica;
 
 	public NaturezaJuridica(DadosCadastrarNaturezaJuridica dados) {

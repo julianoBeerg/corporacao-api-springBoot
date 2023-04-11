@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 
 @Table(name = "TB_INSTITUICAO")
-@Entity(name = "Instituicao")
+@Entity
 public class Instituicao {
 
 	@Id
@@ -21,22 +21,22 @@ public class Instituicao {
 	@Column(name = "PK_ID_INSTITUICAO")
 	private Long id;
 
-	@Column(name = "VAR_TIPO_INSTITUICAO")
+	@Column(name = "VAR_TIPO_INSTITUICAO", nullable=false)
 	private String tipoInstituicao;
 
-	@Column(name = "VAR_FUNDADOR")
+	@Column(name = "VAR_FUNDADOR", nullable=false)
 	private String fundador;
 
-	@Column(name = "DATE_FUNDACAO")
+	@Column(name = "DATE_FUNDACAO", nullable=false)
 	private LocalDate dataFundacao;
 
-	@Column(name = "VAR_PRESIDENTE")
+	@Column(name = "VAR_PRESIDENTE", nullable=false)
 	private String presidente;
 
-	@Column(name = "VAR_REPRESENTANTE")
+	@Column(name = "VAR_REPRESENTANTE", nullable=false)
 	private String representante;
 
-	@Column(name = "VAR_DIRETOR")
+	@Column(name = "VAR_DIRETOR", nullable=false)
 	private String diretor;
 
 	public Instituicao(DadosCadastrarInstituicao dados) {

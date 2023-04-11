@@ -20,7 +20,7 @@ public class Porte {
 	@Column(name = "PK_ID_PORTE")
 	private Long id;
 	
-	@Column(name = "VAR_TIPO_PORTE")
+	@Column(name = "VAR_TIPO_PORTE", nullable=false)
 	private String tipoPorte;
 	
 	public Porte(DadosCadastrarPorte dados) {
