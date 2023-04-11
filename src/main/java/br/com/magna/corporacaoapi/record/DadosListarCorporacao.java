@@ -1,11 +1,11 @@
 package br.com.magna.corporacaoapi.record;
 
-import br.com.magna.corporacaoapi.model.AtividadeComercial;
-import br.com.magna.corporacaoapi.model.Corporacao;
-import br.com.magna.corporacaoapi.model.Instituicao;
-import br.com.magna.corporacaoapi.model.NaturezaJuridica;
-import br.com.magna.corporacaoapi.model.Porte;
-import br.com.magna.corporacaoapi.model.Sede;
+import br.com.magna.corporacaoapi.entity.AtividadeComercial;
+import br.com.magna.corporacaoapi.entity.Corporacao;
+import br.com.magna.corporacaoapi.entity.Instituicao;
+import br.com.magna.corporacaoapi.entity.NaturezaJuridica;
+import br.com.magna.corporacaoapi.entity.Porte;
+import br.com.magna.corporacaoapi.entity.Sede;
 
 public record DadosListarCorporacao(
 

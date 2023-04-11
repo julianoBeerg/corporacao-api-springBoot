@@ -18,6 +18,8 @@ public record DadosCadastrarCorporacao(
 		@NotNull Boolean multinacional,
 
 		@NotNull Double faturamento,
+		
+		//@NotNull Boolean cnpjAtivo,
 
 		@NotNull Integer numFuncionarios,
 

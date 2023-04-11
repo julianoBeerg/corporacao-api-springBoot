@@ -43,7 +43,7 @@ public class Corporacao {
 	@Column(name = "DECIMAL_FATURAMENTO")
 	private Double faturamento;
 
-	@JoinColumn(name = "INT_NUMERO_FUNCIONARIOS")
+	@Column(name = "INT_NUMERO_FUNCIONARIOS")
 	private Integer numFuncionarios;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
