@@ -1,5 +1,7 @@
-package br.com.magna.corporacaoapi.sede;
+package br.com.magna.corporacaoapi.entity;
 
+import br.com.magna.corporacaoapi.record.DadosAtualizarSede;
+import br.com.magna.corporacaoapi.record.DadosCadastrarSede;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,36 +9,35 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-@Table(name = "tb_sedes")
+@Table(name = "TB_SEDE")
 @Entity(name = "Sede")
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
 public class Sede {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "sede_id")
+	@Column(name = "PK_ID_SEDE")
 	private Long id;
 
+	@Column(name = "VAR_PAIS")
 	private String pais;
 
+	@Column(name = "VAR_UF")
 	private String uf;
 
+	@Column(name = "VAR_CIDADE")
 	private String cidade;
-
+	
+	@Column(name = "VAR_LOGRADOURO")
 	private String logradouro;
 
+	@Column(name = "INT_NUMERO")
 	private Integer numero;
 
+	@Column(name = "INT_CEP")
 	private Integer cep;
 
+	@Column(name = "VAR_COMPLEMENTO")
 	private String complemento;
 
 	public Sede(DadosCadastrarSede dados) {
@@ -72,4 +73,69 @@ public class Sede {
 			this.complemento = dados.complemento();
 		}
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public Integer getCep() {
+		return cep;
+	}
+
+	public void setCep(Integer cep) {
+		this.cep = cep;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
+	}
+	
 }

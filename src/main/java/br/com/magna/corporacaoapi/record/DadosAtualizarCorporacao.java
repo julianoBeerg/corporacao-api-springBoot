@@ -1,12 +1,5 @@
-package br.com.magna.corporacaoapi.corporacao;
+package br.com.magna.corporacaoapi.record;
 
-
-
-
-import br.com.magna.corporacaoapi.categoria.DadosAtualizarCategoria;
-import br.com.magna.corporacaoapi.instituicao.DadosAtualizarInstituicao;
-import br.com.magna.corporacaoapi.porte.DadosAtualizarPorte;
-import br.com.magna.corporacaoapi.sede.DadosAtualizarSede;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizarCorporacao(
@@ -27,7 +20,9 @@ public record DadosAtualizarCorporacao(
 		
 		DadosAtualizarPorte dadosAtualizarPorte,
 		
-		DadosAtualizarCategoria dadosAtualizarCategoria,
+		DadosAtualizarAtividadeComercial dadosAtualizarAtividadeComercial,
+		
+		DadosAtualizarNaturezaJuridica dadosAtualizarNaturezaJuridica,
 
 		DadosAtualizarInstituicao dadosAtualizarInstituicao) {
 

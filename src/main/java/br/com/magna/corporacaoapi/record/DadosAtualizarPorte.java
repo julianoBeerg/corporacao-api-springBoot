@@ -1,12 +1,12 @@
-package br.com.magna.corporacaoapi.porte;
+package br.com.magna.corporacaoapi.record;
 
 import jakarta.validation.constraints.NotNull;
 
 public record DadosAtualizarPorte(
 		
-		@NotNull Long id
+		@NotNull Long id,
 
-		//String tipoPorte
+		String tipoPorte
 		) {
 	
 	

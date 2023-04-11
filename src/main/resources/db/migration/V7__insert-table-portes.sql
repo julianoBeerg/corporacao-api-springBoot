@@ -1,4 +1,4 @@
-INSERT INTO tb_portes (tipo_porte) VALUES
+INSERT INTO TB_PORTE (VAR_TIPO_PORTE) VALUES
 	 ('Grupo I – Empresa de Grande Porte'),
 	 ('Grupo II – Empresa de Grande Porte'),
 	 ('Grupo III – Empresa de Médio Porte'),

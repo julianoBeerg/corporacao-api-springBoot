@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.magna.corporacaoapi.corporacao.Corporacao;
-import br.com.magna.corporacaoapi.corporacao.CorporacaoRepository;
-import br.com.magna.corporacaoapi.corporacao.DadosAtualizarCorporacao;
-import br.com.magna.corporacaoapi.corporacao.DadosCadastrarCorporacao;
-import br.com.magna.corporacaoapi.corporacao.DadosListarCorporacao;
-import br.com.magna.corporacaoapi.instituicao.InstituicaoRepository;
-import br.com.magna.corporacaoapi.sede.SedeRepository;
+import br.com.magna.corporacaoapi.model.Corporacao;
+import br.com.magna.corporacaoapi.record.DadosAtualizarCorporacao;
+import br.com.magna.corporacaoapi.record.DadosCadastrarCorporacao;
+import br.com.magna.corporacaoapi.record.DadosListarCorporacao;
+import br.com.magna.corporacaoapi.repository.CorporacaoRepository;
+import br.com.magna.corporacaoapi.repository.InstituicaoRepository;
+import br.com.magna.corporacaoapi.repository.SedeRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -40,15 +40,13 @@ public class CorporacaoController {
 	@PostMapping
 	@Transactional
 	public void cadastrar(@RequestBody @Valid DadosCadastrarCorporacao dadosCadastroCorporacao) {
-		corporacaoRepository.save(new Corporacao(dadosCadastroCorporacao));
-		
-		//return ResponseEntity.created(null)
+		corporacaoRepository.save(new Corporacao(dadosCadastroCorporacao));	
 	}
 
 	@GetMapping
 	public ResponseEntity<Page<DadosListarCorporacao>> listarCorporacoes(
 			@PageableDefault(size = 10, sort = { "razaoSocial" }) Pageable paginacao) {
-
+		 
 		var page = corporacaoRepository.findAll(paginacao).map(DadosListarCorporacao::new);
 		
 		return ResponseEntity.ok(page);
@@ -59,9 +57,7 @@ public class CorporacaoController {
 	public void atualizarCorporacao(@RequestBody @Valid DadosAtualizarCorporacao dados) {
 		var corporacao = corporacaoRepository.getReferenceById(dados.id());
 
-		corporacao.atualizarInformacoes(dados);
-		
-		
+		corporacao.atualizarInformacoes(dados);	
 	}
 
 	@DeleteMapping("/deletar/{id}")
@@ -77,8 +73,8 @@ public class CorporacaoController {
 	@DeleteMapping("/inativar/{id}")
 	@Transactional
 	public ResponseEntity<Long> inativarCorporacao(@PathVariable Long id) {
-		var medico = corporacaoRepository.getReferenceById(id);
-		medico.inativarCnpj();
+		var corporacao = corporacaoRepository.getReferenceById(id);
+		corporacao.inativarCnpj();
 		
 		return ResponseEntity.noContent().build();
 	}

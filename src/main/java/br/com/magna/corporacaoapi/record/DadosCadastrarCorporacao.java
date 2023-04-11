@@ -1,17 +1,15 @@
-package br.com.magna.corporacaoapi.corporacao;
+package br.com.magna.corporacaoapi.record;
 
-import br.com.magna.corporacaoapi.categoria.DadosCadastrarCategoria;
-import br.com.magna.corporacaoapi.instituicao.DadosCadastrarInstituicao;
-import br.com.magna.corporacaoapi.porte.DadosCadastrarPorte;
-import br.com.magna.corporacaoapi.sede.DadosCadastrarSede;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastrarCorporacao(
 
-		@NotBlank String cnpj,
+		@NotBlank(message = "{cnpj.obrigatorio}") 
+		String cnpj,
 
-		@NotBlank String razaoSocial,
+		@NotBlank(message = "{razaoSocial.obrigatorio}") 
+		String razaoSocial,
 
 		@NotBlank String nomeFantasia,
 
@@ -27,7 +25,9 @@ public record DadosCadastrarCorporacao(
 		
 		@NotNull DadosCadastrarPorte dadosCadastrarPorte,
 		
-		@NotNull DadosCadastrarCategoria dadosCadastrarCategoria,
+		@NotNull DadosCadastrarAtividadeComercial dadosCadastrarAtividadeComercial,
+		
+		@NotNull DadosCadastrarNaturezaJuridica dadosCadastrarNaturezaJuridica,
 
 		@NotNull DadosCadastrarSede dadosCadastrarSede) {
 

@@ -1,11 +1,9 @@
-package br.com.magna.corporacaoapi.categoria;
+package br.com.magna.corporacaoapi.record;
 
 import jakarta.validation.constraints.NotNull;
 
-public record DadosAtualizarCategoria(
+public record DadosAtualizarAtividadeComercial(
 		@NotNull Long id,
-		Integer codigoNaturezaJuridica,
-		String descricaoNaturezaJuridica,
 		Integer codigoAtividadeComercial,
 		String descricaoAtividadeComercial
 		) {
