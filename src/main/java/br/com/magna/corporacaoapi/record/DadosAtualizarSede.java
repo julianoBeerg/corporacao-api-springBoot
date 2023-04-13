@@ -8,16 +8,16 @@ public record DadosAtualizarSede(
 
 		String pais,
 
-		String uf,
+		 String uf,
 
-		String cidade,
+		 String cidade,
 
-		String logradouro,
+		 String logradouro,
 
-		Integer numero,
+		 Integer numero,
 
-		Integer cep,
+		 Integer cep,
 
-		String complemento) {
+		 String complemento) {
 
 }

@@ -1,5 +1,7 @@
-package br.com.magna.corporacaoapi.entity;
+package br.com.magna.corporacaoapi.entity.entityHistoric;
 
+import br.com.magna.corporacaoapi.entity.AbstractEntity;
+import br.com.magna.corporacaoapi.entity.Corporacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,9 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_NATUREZA_JURIDICA")
+@Table(name = "TB_NATUREZA_JURIDICA_HISTORIC")
 @Entity
-public class NaturezaJuridica extends AbstractEntity<NaturezaJuridica, Long> {
+public class NaturezaJuridicaHistoric extends AbstractEntity<Corporacao, Long>{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

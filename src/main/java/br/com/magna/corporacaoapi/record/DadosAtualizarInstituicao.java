@@ -6,10 +6,10 @@ public record DadosAtualizarInstituicao(
 
 		@NotNull Long id,
 
-		String presidente,
+		 String presidente,
 
-		String representante,
+		 String representante,
 
-		String diretor) {
+		 String diretor) {
 
 }

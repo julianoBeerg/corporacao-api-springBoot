@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import br.com.magna.corporacaoapi.entity.Corporacao;
 import br.com.magna.corporacaoapi.record.DadosAtualizarCorporacao;
 import br.com.magna.corporacaoapi.record.DadosCadastrarCorporacao;
 import br.com.magna.corporacaoapi.record.DadosListarCorporacao;
-import br.com.magna.corporacaoapi.repository.CorporacaoRepository;
-import br.com.magna.corporacaoapi.repository.InstituicaoRepository;
-import br.com.magna.corporacaoapi.repository.SedeRepository;
+import br.com.magna.corporacaoapi.service.CorporacaoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -28,53 +28,69 @@ import jakarta.validation.Valid;
 public class CorporacaoController {
 
 	@Autowired
-	private CorporacaoRepository corporacaoRepository;
+	CorporacaoService corporacaoService;
 	
-	@Autowired
-	private InstituicaoRepository instituicaoRepository;
-	
-	@Autowired
-	private SedeRepository sedeRepository;
+//	@Autowired
+//	CorporacaoRepository corporacaoRepository;
 
 	@PostMapping
 	@Transactional
-	public void cadastrar(@RequestBody @Valid DadosCadastrarCorporacao dadosCadastroCorporacao) {
-		corporacaoRepository.save(new Corporacao(dadosCadastroCorporacao));	
+	public ResponseEntity<DadosListarCorporacao> cadastrarCorporacao(@RequestBody @Valid DadosCadastrarCorporacao dados,
+			UriComponentsBuilder uriBuilder) {
+		Corporacao corporacao = corporacaoService.cadastrarCorporacao(dados);
+		var uri = uriBuilder.path("/corporacao/{id}").buildAndExpand(corporacao.getId()).toUri();
+		return ResponseEntity.created(uri).body(new DadosListarCorporacao(corporacao));
 	}
 
-	@GetMapping
+	@GetMapping("/listar")
 	public ResponseEntity<Page<DadosListarCorporacao>> listarCorporacoes(
 			@PageableDefault(size = 10, sort = { "razaoSocial" }) Pageable paginacao) {
-		 
-		var page = corporacaoRepository.findAll(paginacao).map(DadosListarCorporacao::new);
-		
-		return ResponseEntity.ok(page);
+		return ResponseEntity.ok(corporacaoService.listarCorporacoes(paginacao));
+	}
+
+	@GetMapping("/listar/ativo")
+	public ResponseEntity<Page<DadosListarCorporacao>> listarCnpjAtivo(
+			@PageableDefault(size = 10, sort = { "razaoSocial" }) Pageable paginacao) {
+
+		return ResponseEntity.ok(corporacaoService.listarCnpjAtivo(paginacao));
+	}
+
+	@GetMapping("/listar/{id}")
+	public ResponseEntity<DadosListarCorporacao> listarPorId(@PathVariable Long id) {
+
+		return ResponseEntity.ok(new DadosListarCorporacao(corporacaoService.listarPorId(id)));
 	}
 
 	@PutMapping
 	@Transactional
-	public void atualizarCorporacao(@RequestBody @Valid DadosAtualizarCorporacao dados) {
-		var corporacao = corporacaoRepository.getReferenceById(dados.id());
+	public ResponseEntity<DadosListarCorporacao> atualizarCorporacao(
+			@RequestBody @Valid DadosAtualizarCorporacao dados) {
 
-		corporacao.atualizarInformacoes(dados);	
+		return ResponseEntity.ok(new DadosListarCorporacao(corporacaoService.atualizarCorporacao(dados)));
 	}
 
-	@DeleteMapping("/deletar/{id}")
+	@PutMapping("/ativar/{id}")
 	@Transactional
-	public ResponseEntity<Long> excluirCorporacao(@PathVariable Long id) {
-		sedeRepository.deleteById(id);
-		instituicaoRepository.deleteById(id);
-		corporacaoRepository.deleteById(id);
-		
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<DadosListarCorporacao> ativarCorporacao(@PathVariable Long id) {
+		corporacaoService.ativarCnpj(id);
+
+		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/inativar/{id}")
 	@Transactional
 	public ResponseEntity<Long> inativarCorporacao(@PathVariable Long id) {
-		var corporacao = corporacaoRepository.getReferenceById(id);
-		corporacao.inativarCnpj();
-		
+		corporacaoService.inativarCnpj(id);
+
 		return ResponseEntity.noContent().build();
 	}
+
+	@DeleteMapping("/deletar/{id}")
+	@Transactional
+	public ResponseEntity<Long> excluirCorporacao(@PathVariable Long id) {
+		corporacaoService.excluirCorporacao(id);
+
+		return ResponseEntity.noContent().build();
+	}
+
 }

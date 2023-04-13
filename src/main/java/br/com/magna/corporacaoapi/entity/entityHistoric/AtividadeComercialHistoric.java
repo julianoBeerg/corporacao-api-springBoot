@@ -1,5 +1,7 @@
-package br.com.magna.corporacaoapi.entity;
+package br.com.magna.corporacaoapi.entity.entityHistoric;
 
+import br.com.magna.corporacaoapi.entity.AbstractEntity;
+import br.com.magna.corporacaoapi.entity.Corporacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,13 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_ATIVIDADE_COMERCIAL")
+@Table(name = "TB_ATIVIDADE_COMERCIAL_HISTORIC")
 @Entity
-public class AtividadeComercial extends AbstractEntity<AtividadeComercial, Long> {
+public class AtividadeComercialHistoric extends AbstractEntity<Corporacao, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PK_ID_ATIVIDADE_COMERCIAL")
+	@Column(name = "PK_ID_ATIVIDADE_COMERCIAL_HIST")
 	private Long id;
 
 	@Column(name = "INT_CODIGO_ATIVIDADE_COMERCIAL", nullable = false)

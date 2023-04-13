@@ -1,7 +1,9 @@
-package br.com.magna.corporacaoapi.entity;
+package br.com.magna.corporacaoapi.entity.entityHistoric;
 
 import java.time.LocalDate;
 
+import br.com.magna.corporacaoapi.entity.AbstractEntity;
+import br.com.magna.corporacaoapi.entity.Corporacao;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,9 +13,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_INSTITUICAO")
+@Table(name = "TB_INSTITUICAO_HISTORIC")
 @Entity
-public class Instituicao extends AbstractEntity<Instituicao, Long> {
+public class InstituicaoHistoric extends AbstractEntity<Corporacao, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,7 @@ public class Instituicao extends AbstractEntity<Instituicao, Long> {
 	private String diretor;
 
 	@OneToOne(mappedBy = "instituicao", fetch = FetchType.EAGER)
-	private Corporacao corporacao;
+	private CorporacaoHistoric corporacao;
 
 	@Override
 	public Long getId() {

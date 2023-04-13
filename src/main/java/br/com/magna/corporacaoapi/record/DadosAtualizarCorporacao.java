@@ -17,11 +17,11 @@ public record DadosAtualizarCorporacao(
 		Integer numFuncionarios,
 
 		DadosAtualizarSede dadosAtualizarSede,
-		
+
 		DadosAtualizarPorte dadosAtualizarPorte,
-		
+
 		DadosAtualizarAtividadeComercial dadosAtualizarAtividadeComercial,
-		
+
 		DadosAtualizarNaturezaJuridica dadosAtualizarNaturezaJuridica,
 
 		DadosAtualizarInstituicao dadosAtualizarInstituicao) {

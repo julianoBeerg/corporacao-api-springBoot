@@ -1,5 +1,7 @@
  package br.com.magna.corporacaoapi.record;
 
+import java.time.ZonedDateTime;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -31,6 +33,11 @@ public record DadosCadastrarCorporacao(
 		
 		@NotNull DadosCadastrarNaturezaJuridica dadosCadastrarNaturezaJuridica,
 
-		@NotNull DadosCadastrarSede dadosCadastrarSede) {
-
+		@NotNull DadosCadastrarSede dadosCadastrarSede,
+		
+		 String userDatabase,
+		
+		ZonedDateTime timeStampFirstCreated
+		
+		) {
 }

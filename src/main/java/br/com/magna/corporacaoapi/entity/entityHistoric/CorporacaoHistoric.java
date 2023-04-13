@@ -1,4 +1,4 @@
-package br.com.magna.corporacaoapi.entity;
+package br.com.magna.corporacaoapi.entity.entityHistoric;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -9,17 +9,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import br.com.magna.corporacaoapi.entity.AbstractEntity;
 
-@Table(name = "TB_CORPORACAO")
+@Table(name = "TB_CORPORACAO_HISTORIC")
 @Entity
-public class Corporacao extends AbstractEntity<Corporacao, Long>{
- 
+public class CorporacaoHistoric extends AbstractEntity<CorporacaoHistoric, Long> {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PK_ID_CORPORACAO")
+	@Column(name = "PK_ID_CORPORACAO_HISTORIC")
 	private Long id;
 
-	@Column(name = "VAR_CNPJ", length = 18, nullable = false, unique = true)
+	@Column(name = "ID_CORPORACAO")
+	private Long idCorporacao;
+
+	@Column(name = "VAR_CNPJ", length = 18, nullable = false)
 	private String cnpj;
 
 	@Column(name = "VAR_RAZAO_SOCIAL", nullable = false)
@@ -45,32 +49,40 @@ public class Corporacao extends AbstractEntity<Corporacao, Long>{
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "FK_INSTITUICAO_ID")
-	private Instituicao instituicao;
+	private InstituicaoHistoric instituicao;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_PORTE_ID")
-	private Porte porte;
+	private PorteHistoric porte;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_ATIVIDADE_COMERCIAL_ID")
-	private AtividadeComercial atividadeComercial;
+	private AtividadeComercialHistoric atividadeComercial;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_NATUREZA_JURIDICA_ID")
-	private NaturezaJuridica naturezaJuridica;
+	private NaturezaJuridicaHistoric naturezaJuridica;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_SEDE_ID")
-	private Sede sede;
-	
+	private SedeHistoric sede;
+
 	@Override
 	public Long getId() {
-		return id; 
+		return id;
 	}
 
 	@Override
 	public Long setId(Long id) {
 		return this.id;
+	}
+
+	public Long getIdCorporacao() {
+		return idCorporacao;
+	}
+
+	public void setIdCorporacao(Long idCorporacao) {
+		this.idCorporacao = idCorporacao;
 	}
 
 	public String getCnpj() {
@@ -137,43 +149,44 @@ public class Corporacao extends AbstractEntity<Corporacao, Long>{
 		this.numFuncionarios = numFuncionarios;
 	}
 
-	public Instituicao getInstituicao() {
+	public InstituicaoHistoric getInstituicao() {
 		return instituicao;
 	}
 
-	public void setInstituicao(Instituicao instituicao) {
+	public void setInstituicao(InstituicaoHistoric instituicao) {
 		this.instituicao = instituicao;
 	}
 
-	public Porte getPorte() {
+	public PorteHistoric getPorte() {
 		return porte;
 	}
 
-	public void setPorte(Porte porte) {
+	public void setPorte(PorteHistoric porte) {
 		this.porte = porte;
 	}
 
-	public AtividadeComercial getAtividadeComercial() {
+	public AtividadeComercialHistoric getAtividadeComercial() {
 		return atividadeComercial;
 	}
 
-	public void setAtividadeComercial(AtividadeComercial atividadeComercial) {
+	public void setAtividadeComercial(AtividadeComercialHistoric atividadeComercial) {
 		this.atividadeComercial = atividadeComercial;
 	}
 
-	public NaturezaJuridica getNaturezaJuridica() {
+	public NaturezaJuridicaHistoric getNaturezaJuridica() {
 		return naturezaJuridica;
 	}
 
-	public void setNaturezaJuridica(NaturezaJuridica naturezaJuridica) {
+	public void setNaturezaJuridica(NaturezaJuridicaHistoric naturezaJuridica) {
 		this.naturezaJuridica = naturezaJuridica;
 	}
 
-	public Sede getSede() {
+	public SedeHistoric getSede() {
 		return sede;
 	}
 
-	public void setSede(Sede sede) {
+	public void setSede(SedeHistoric sede) {
 		this.sede = sede;
 	}
+
 }
