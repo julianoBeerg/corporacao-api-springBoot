@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Sede;
-import br.com.magna.corporacaoapi.entity.entityHistoric.SedeHistoric;
-import br.com.magna.corporacaoapi.record.DadosAtualizarSede;
-import br.com.magna.corporacaoapi.record.DadosCadastrarSede;
+import br.com.magna.corporacaoapi.entity.entityHistoric.SedeHistorico;
+import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarSede;
+import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarSede;
 import br.com.magna.corporacaoapi.repository.SedeRepository;
 
 @Service
@@ -16,6 +16,10 @@ public class SedeService {
 
 	@Autowired
 	private SedeRepository sedeRepository;
+
+	private String dbUser = "Admin";
+
+	private String dbUser2 = "Admin2";
 
 	public Sede cadastrarSede(DadosCadastrarSede dados) {
 		Sede sede = new Sede();
@@ -27,11 +31,15 @@ public class SedeService {
 		sede.setCep(dados.cep());
 		sede.setComplemento(dados.complemento());
 
-		sede.setUserDatabase("admin");
+		sede.setUserDatabaseCreate(dbUser);
 
-		sede.setTimeStampFirstCreated(ZonedDateTime.now());
+		sede.setUserDatabaseUpdate(dbUser);
 
-		sede.setTimeStampLastUpdate(ZonedDateTime.now());
+		sede.setTimestampFirstCreated(ZonedDateTime.now());
+
+		sede.setTimestampLastUpdate(ZonedDateTime.now());
+
+		sede.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
 		return sede;
 	}
@@ -62,33 +70,36 @@ public class SedeService {
 			sede.setComplemento(dados.complemento());
 		}
 
-		sede.setUserDatabase("admin");
+		sede.setUserDatabaseCreate(dbUser);
 
-		sede.setTimeStampFirstCreated(sede.getTimeStampFirstCreated());
+		sede.setUserDatabaseUpdate(dbUser2);
 
-		sede.setTimeStampLastUpdate(ZonedDateTime.now());
-		
-		sedeRepository.save(sede);
+		sede.setTimestampLastUpdate(ZonedDateTime.now());
 
 		return sede;
 	}
 
-	public SedeHistoric cadastrarSedeHistorioco(Sede dados) {
-		SedeHistoric sede = new SedeHistoric();
-		sede.setPais(dados.getPais());
-		sede.setUf(dados.getUf());
-		sede.setCidade(dados.getCidade());
-		sede.setLogradouro(dados.getLogradouro());
-		sede.setNumero(dados.getNumero());
-		sede.setCep(dados.getCep());
-		sede.setComplemento(dados.getComplemento());
+	public SedeHistorico cadastrarSedeHistorioco(Sede sede) {
+		SedeHistorico sedeHistorico = new SedeHistorico();
 		
-		sede.setUserDatabase("admin");
+		sedeHistorico.setPais(sede.getPais());
+		sedeHistorico.setUf(sede.getUf());
+		sedeHistorico.setCidade(sede.getCidade());
+		sedeHistorico.setLogradouro(sede.getLogradouro());
+		sedeHistorico.setNumero(sede.getNumero());
+		sedeHistorico.setCep(sede.getCep());
+		sedeHistorico.setComplemento(sede.getComplemento());
 
-		sede.setTimeStampFirstCreated(ZonedDateTime.now());
+		sedeHistorico.setUserDatabaseCreate(sede.getUserDatabaseCreate());
 
-		sede.setTimeStampLastUpdate(ZonedDateTime.now());
+		sedeHistorico.setUserDatabaseUpdate(dbUser2);
 
-		return sede;
+		sedeHistorico.setTimestampFirstCreated(sede.getTimestampFirstCreated());
+
+		sedeHistorico.setTimestampLastUpdate(ZonedDateTime.now());
+
+		sedeHistorico.setTimestampTimeZone(ZonedDateTime.now().getZone());
+
+		return sedeHistorico;
 	}
 }

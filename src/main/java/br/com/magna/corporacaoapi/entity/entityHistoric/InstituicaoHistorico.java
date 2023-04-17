@@ -13,13 +13,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_INSTITUICAO_HISTORIC")
+@Table(name = "TB_INSTITUICAO_HISTORICO")
 @Entity
-public class InstituicaoHistoric extends AbstractEntity<Corporacao, Long> {
+public class InstituicaoHistorico extends AbstractEntity<Corporacao, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PK_ID_INSTITUICAO")
+	@Column(name = "PK_ID_INSTITUICAO_HIST")
 	private Long id;
 
 	@Column(name = "VAR_TIPO_INSTITUICAO", nullable = false)
@@ -41,7 +41,7 @@ public class InstituicaoHistoric extends AbstractEntity<Corporacao, Long> {
 	private String diretor;
 
 	@OneToOne(mappedBy = "instituicao", fetch = FetchType.EAGER)
-	private CorporacaoHistoric corporacao;
+	private CorporacaoHistorico corporacao;
 
 	@Override
 	public Long getId() {

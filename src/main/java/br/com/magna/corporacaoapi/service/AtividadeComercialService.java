@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.AtividadeComercial;
-import br.com.magna.corporacaoapi.entity.entityHistoric.AtividadeComercialHistoric;
-import br.com.magna.corporacaoapi.record.DadosAtualizarAtividadeComercial;
-import br.com.magna.corporacaoapi.record.DadosCadastrarAtividadeComercial;
+import br.com.magna.corporacaoapi.entity.entityHistoric.AtividadeComercialHistorico;
+import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarAtividadeComercial;
+import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarAtividadeComercial;
 import br.com.magna.corporacaoapi.repository.AtividadeComercialRepository;
 import jakarta.validation.Valid;
 
@@ -18,16 +18,23 @@ public class AtividadeComercialService {
 	@Autowired
 	private AtividadeComercialRepository atividadeComercialRepository;
 
+	private String dbUser = "Admin";
+	private String dbUser2 = "Admin2";
+
 	public AtividadeComercial cadastrarAtividadeComercial(DadosCadastrarAtividadeComercial dados) {
 		AtividadeComercial atividadeComercial = new AtividadeComercial();
 		atividadeComercial.setCodigoAtividadeComercial(dados.codigoAtividadeComercial());
 		atividadeComercial.setDescricaoAtividadeComercial(dados.descricaoAtividadeComercial());
 
-		atividadeComercial.setUserDatabase("admin");
+		atividadeComercial.setUserDatabaseCreate(dbUser);
 
-		atividadeComercial.setTimeStampFirstCreated(ZonedDateTime.now());
+		atividadeComercial.setUserDatabaseUpdate(dbUser);
 
-		atividadeComercial.setTimeStampLastUpdate(ZonedDateTime.now());
+		atividadeComercial.setTimestampFirstCreated(ZonedDateTime.now());
+
+		atividadeComercial.setTimestampLastUpdate(ZonedDateTime.now());
+
+		atividadeComercial.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
 		return atividadeComercial;
 	}
@@ -42,29 +49,31 @@ public class AtividadeComercialService {
 		if (dados.descricaoAtividadeComercial() != null) {
 			atividadeComercial.setDescricaoAtividadeComercial(dados.descricaoAtividadeComercial());
 		}
-		
-		atividadeComercial.setUserDatabase("admin");
 
-		atividadeComercial.setTimeStampFirstCreated(atividadeComercial.getTimeStampFirstCreated());
+		atividadeComercial.setUserDatabaseCreate(dbUser);
 
-		atividadeComercial.setTimeStampLastUpdate(ZonedDateTime.now());
+		atividadeComercial.setUserDatabaseUpdate(dbUser2);
 
-		atividadeComercialRepository.save(atividadeComercial);
+		atividadeComercial.setTimestampLastUpdate(ZonedDateTime.now());
 
 		return atividadeComercial;
 	}
 
-	public AtividadeComercialHistoric cadastrarAtividadeComercialHistorico(AtividadeComercial dados) {
-		AtividadeComercialHistoric atividadeComercial = new AtividadeComercialHistoric();
-		atividadeComercial.setCodigoAtividadeComercial(dados.getCodigoAtividadeComercial());
-		atividadeComercial.setDescricaoAtividadeComercial(dados.getDescricaoAtividadeComercial());
-		
-		atividadeComercial.setUserDatabase("admin");
+	public AtividadeComercialHistorico cadastrarAtividadeComercialHistorico(AtividadeComercial atividadeComercial) {
+		AtividadeComercialHistorico atividadeComercialHistorico = new AtividadeComercialHistorico();
+		atividadeComercialHistorico.setCodigoAtividadeComercial(atividadeComercial.getCodigoAtividadeComercial());
+		atividadeComercialHistorico.setDescricaoAtividadeComercial(atividadeComercial.getDescricaoAtividadeComercial());
 
-		atividadeComercial.setTimeStampFirstCreated(ZonedDateTime.now());
+		atividadeComercialHistorico.setUserDatabaseCreate(atividadeComercial.getUserDatabaseCreate());
 
-		atividadeComercial.setTimeStampLastUpdate(ZonedDateTime.now());
+		atividadeComercialHistorico.setUserDatabaseUpdate(dbUser2);
 
-		return atividadeComercial;
+		atividadeComercialHistorico.setTimestampFirstCreated(atividadeComercial.getTimestampFirstCreated());
+
+		atividadeComercialHistorico.setTimestampLastUpdate(ZonedDateTime.now());
+
+		atividadeComercialHistorico.setTimestampTimeZone(ZonedDateTime.now().getZone());
+
+		return atividadeComercialHistorico;
 	}
 }

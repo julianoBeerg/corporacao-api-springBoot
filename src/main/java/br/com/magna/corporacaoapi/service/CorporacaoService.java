@@ -8,17 +8,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Corporacao;
-import br.com.magna.corporacaoapi.entity.entityHistoric.CorporacaoHistoric;
-import br.com.magna.corporacaoapi.record.DadosAtualizarCorporacao;
-import br.com.magna.corporacaoapi.record.DadosCadastrarCorporacao;
+import br.com.magna.corporacaoapi.entity.entityHistoric.CorporacaoHistorico;
 import br.com.magna.corporacaoapi.record.DadosListarCorporacao;
+import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarCorporacao;
+import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarCorporacao;
 import br.com.magna.corporacaoapi.repository.AtividadeComercialRepository;
 import br.com.magna.corporacaoapi.repository.CorporacaoRepository;
 import br.com.magna.corporacaoapi.repository.InstituicaoRepository;
 import br.com.magna.corporacaoapi.repository.NaturezaJuridicaRepository;
 import br.com.magna.corporacaoapi.repository.PorteRepository;
 import br.com.magna.corporacaoapi.repository.SedeRepository;
-import br.com.magna.corporacaoapi.repository.repositoryHistoric.CorporacaoRepositoryHistoric;
+import br.com.magna.corporacaoapi.repository.repositoryHistoric.CorporacaoRepositoryHistorico;
 import jakarta.validation.Valid;
 
 @Service
@@ -43,7 +43,7 @@ public class CorporacaoService {
 	private CorporacaoRepository corporacaoRepository;
 
 	@Autowired
-	private CorporacaoRepositoryHistoric corporacaoRepositoryHistoric;
+	private CorporacaoRepositoryHistorico corporacaoRepositoryHistoric;
 
 	@Autowired
 	private InstituicaoRepository instituicaoRepository;
@@ -59,8 +59,10 @@ public class CorporacaoService {
 
 	@Autowired
 	private SedeRepository sedeRepository;
-	
-	private String db_user = "Admin";
+
+	private String dbUser = "Admin";
+
+	private String dbUser2 = "Admin2";
 
 	public Corporacao cadastrarCorporacao(DadosCadastrarCorporacao dados) {
 		Corporacao corporacao = new Corporacao();
@@ -89,15 +91,19 @@ public class CorporacaoService {
 		var sede = sedeService.cadastrarSede(dados.dadosCadastrarSede());
 		corporacao.setSede(sede);
 
-		corporacao.setUserDatabase(db_user);
+		corporacao.setUserDatabaseCreate(dbUser);
 
-		corporacao.setTimeStampFirstCreated(ZonedDateTime.now());
+		corporacao.setUserDatabaseUpdate(dbUser);
 
-		corporacao.setTimeStampLastUpdate(ZonedDateTime.now());
+		corporacao.setTimestampFirstCreated(ZonedDateTime.now());
+
+		corporacao.setTimestampLastUpdate(ZonedDateTime.now());
+
+		corporacao.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
 		corporacaoRepository.save(corporacao);
 
-		CorporacaoHistoric corporacaoHistoric = cadastrarCorporacaoHistotico(corporacao);
+		CorporacaoHistorico corporacaoHistoric = cadastrarCorporacaoHistotico(corporacao);
 		corporacaoRepositoryHistoric.save(corporacaoHistoric);
 
 		return corporacao;
@@ -106,7 +112,7 @@ public class CorporacaoService {
 	public Corporacao atualizarCorporacao(@Valid DadosAtualizarCorporacao dados) {
 
 		var corporacao = corporacaoRepository.getReferenceById(dados.id());
-		CorporacaoHistoric corporacaoHistoric = cadastrarCorporacaoHistotico(corporacao);
+		CorporacaoHistorico corporacaoHistoric = cadastrarCorporacaoHistotico(corporacao);
 		corporacaoRepositoryHistoric.save(corporacaoHistoric);
 
 		if (dados.nomeFantasia() != null) {
@@ -135,9 +141,11 @@ public class CorporacaoService {
 
 		sedeService.atualizarSede(dados.dadosAtualizarSede());
 
-		corporacao.setUserDatabase(db_user);
+		corporacao.setUserDatabaseCreate(dbUser);
 
-		corporacao.setTimeStampLastUpdate(ZonedDateTime.now());
+		corporacao.setUserDatabaseUpdate(dbUser2);
+
+		corporacao.setTimestampLastUpdate(ZonedDateTime.now());
 
 		corporacaoRepository.save(corporacao);
 
@@ -176,39 +184,42 @@ public class CorporacaoService {
 
 	}
 
-	public CorporacaoHistoric cadastrarCorporacaoHistotico(Corporacao corporacao) {
-		CorporacaoHistoric corporacaoHistoric = new CorporacaoHistoric();
+	public CorporacaoHistorico cadastrarCorporacaoHistotico(Corporacao corporacao) {
+		CorporacaoHistorico corporacaoHistorico = new CorporacaoHistorico();
 
-		corporacaoHistoric.setIdCorporacao(corporacao.getId());
+		corporacaoHistorico.setIdCorporacao(corporacao.getId());
+		corporacaoHistorico.setCnpj(corporacao.getCnpj());
+		corporacaoHistorico.setRazaoSocial(corporacao.getRazaoSocial());
+		corporacaoHistorico.setNomeFantasia(corporacao.getNomeFantasia());
+		corporacaoHistorico.setTipoPublico(corporacao.getTipoPublico());
+		corporacaoHistorico.setMultinacional(corporacao.getMultinacional());
+		corporacaoHistorico.setFaturamento(corporacao.getFaturamento());
+		corporacaoHistorico.setNumFuncionarios(corporacao.getNumFuncionarios());
 
-		corporacaoHistoric.setCnpj(corporacao.getCnpj());
-		corporacaoHistoric.setRazaoSocial(corporacao.getRazaoSocial());
-		corporacaoHistoric.setNomeFantasia(corporacao.getNomeFantasia());
-		corporacaoHistoric.setTipoPublico(corporacao.getTipoPublico());
-		corporacaoHistoric.setMultinacional(corporacao.getMultinacional());
-		corporacaoHistoric.setFaturamento(corporacao.getFaturamento());
-		corporacaoHistoric.setNumFuncionarios(corporacao.getNumFuncionarios());
-
-		corporacaoHistoric
+		corporacaoHistorico
 				.setInstituicao(instituicaoService.cadastrarInstituicaoHistorico(corporacao.getInstituicao()));
 
-		corporacaoHistoric.setPorte(porteService.cadastrarPorteHistorico(corporacao.getPorte()));
+		corporacaoHistorico.setPorte(porteService.cadastrarPorteHistorico(corporacao.getPorte()));
 
-		corporacaoHistoric.setAtividadeComercial(
+		corporacaoHistorico.setAtividadeComercial(
 				atividadeComercialService.cadastrarAtividadeComercialHistorico(corporacao.getAtividadeComercial()));
 
-		corporacaoHistoric.setNaturezaJuridica(
+		corporacaoHistorico.setNaturezaJuridica(
 				naturezaJuridicaService.cadastrarNaturezaJuridicaHistorico(corporacao.getNaturezaJuridica()));
 
-		corporacaoHistoric.setSede(sedeService.cadastrarSedeHistorioco(corporacao.getSede()));
+		corporacaoHistorico.setSede(sedeService.cadastrarSedeHistorioco(corporacao.getSede()));
 
-		corporacaoHistoric.setUserDatabase(db_user);
+		corporacaoHistorico.setUserDatabaseCreate(corporacao.getUserDatabaseCreate());
 
-		corporacaoHistoric.setTimeStampFirstCreated(corporacao.getTimeStampFirstCreated());
+		corporacaoHistorico.setUserDatabaseUpdate(dbUser2);
 
-		corporacaoHistoric.setTimeStampLastUpdate(ZonedDateTime.now());
+		corporacaoHistorico.setTimestampFirstCreated(corporacao.getTimestampFirstCreated());
 
-		return corporacaoHistoric;
+		corporacaoHistorico.setTimestampLastUpdate(ZonedDateTime.now());
+
+		corporacaoHistorico.setTimestampTimeZone(ZonedDateTime.now().getZone());
+
+		return corporacaoHistorico;
 
 	}
 

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.magna.corporacaoapi.entity.Corporacao;
-import br.com.magna.corporacaoapi.record.DadosAtualizarCorporacao;
-import br.com.magna.corporacaoapi.record.DadosCadastrarCorporacao;
 import br.com.magna.corporacaoapi.record.DadosListarCorporacao;
+import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarCorporacao;
+import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarCorporacao;
 import br.com.magna.corporacaoapi.service.CorporacaoService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -29,9 +29,6 @@ public class CorporacaoController {
 
 	@Autowired
 	CorporacaoService corporacaoService;
-	
-//	@Autowired
-//	CorporacaoRepository corporacaoRepository;
 
 	@PostMapping
 	@Transactional
@@ -40,6 +37,14 @@ public class CorporacaoController {
 		Corporacao corporacao = corporacaoService.cadastrarCorporacao(dados);
 		var uri = uriBuilder.path("/corporacao/{id}").buildAndExpand(corporacao.getId()).toUri();
 		return ResponseEntity.created(uri).body(new DadosListarCorporacao(corporacao));
+	}
+
+	@PutMapping
+	@Transactional
+	public ResponseEntity<DadosListarCorporacao> atualizarCorporacao(
+			@RequestBody @Valid DadosAtualizarCorporacao dados) {
+
+		return ResponseEntity.ok(new DadosListarCorporacao(corporacaoService.atualizarCorporacao(dados)));
 	}
 
 	@GetMapping("/listar")
@@ -59,14 +64,6 @@ public class CorporacaoController {
 	public ResponseEntity<DadosListarCorporacao> listarPorId(@PathVariable Long id) {
 
 		return ResponseEntity.ok(new DadosListarCorporacao(corporacaoService.listarPorId(id)));
-	}
-
-	@PutMapping
-	@Transactional
-	public ResponseEntity<DadosListarCorporacao> atualizarCorporacao(
-			@RequestBody @Valid DadosAtualizarCorporacao dados) {
-
-		return ResponseEntity.ok(new DadosListarCorporacao(corporacaoService.atualizarCorporacao(dados)));
 	}
 
 	@PutMapping("/ativar/{id}")

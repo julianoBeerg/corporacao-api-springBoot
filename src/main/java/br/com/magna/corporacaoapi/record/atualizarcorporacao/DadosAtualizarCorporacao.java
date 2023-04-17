@@ -1,4 +1,4 @@
-package br.com.magna.corporacaoapi.record;
+package br.com.magna.corporacaoapi.record.atualizarcorporacao;
 
 import jakarta.validation.constraints.NotNull;
 

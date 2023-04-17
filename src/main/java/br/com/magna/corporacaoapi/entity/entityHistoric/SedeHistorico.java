@@ -9,13 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_SEDE_HISTORIC")
+@Table(name = "TB_SEDE_HISTORICO")
 @Entity
-public class SedeHistoric extends AbstractEntity<Corporacao, Long>{
+public class SedeHistorico extends AbstractEntity<Corporacao, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PK_ID_SEDE")
+	@Column(name = "PK_ID_SEDE_HIST")
 	private Long id;
 
 	@Column(name = "VAR_PAIS", nullable = false)

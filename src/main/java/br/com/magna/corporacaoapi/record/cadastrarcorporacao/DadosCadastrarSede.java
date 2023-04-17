@@ -1,4 +1,4 @@
-package br.com.magna.corporacaoapi.record;
+package br.com.magna.corporacaoapi.record.cadastrarcorporacao;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

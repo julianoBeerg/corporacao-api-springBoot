@@ -11,13 +11,13 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import br.com.magna.corporacaoapi.entity.AbstractEntity;
 
-@Table(name = "TB_CORPORACAO_HISTORIC")
+@Table(name = "TB_CORPORACAO_HISTORICO")
 @Entity
-public class CorporacaoHistoric extends AbstractEntity<CorporacaoHistoric, Long> {
+public class CorporacaoHistorico extends AbstractEntity<CorporacaoHistorico, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PK_ID_CORPORACAO_HISTORIC")
+	@Column(name = "PK_ID_CORPORACAO_HIST")
 	private Long id;
 
 	@Column(name = "ID_CORPORACAO")
@@ -49,23 +49,23 @@ public class CorporacaoHistoric extends AbstractEntity<CorporacaoHistoric, Long>
 
 	@OneToOne(cascade = { CascadeType.ALL })
 	@JoinColumn(name = "FK_INSTITUICAO_ID")
-	private InstituicaoHistoric instituicao;
+	private InstituicaoHistorico instituicao;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_PORTE_ID")
-	private PorteHistoric porte;
+	private PorteHistorico porte;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_ATIVIDADE_COMERCIAL_ID")
-	private AtividadeComercialHistoric atividadeComercial;
+	private AtividadeComercialHistorico atividadeComercial;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_NATUREZA_JURIDICA_ID")
-	private NaturezaJuridicaHistoric naturezaJuridica;
+	private NaturezaJuridicaHistorico naturezaJuridica;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_SEDE_ID")
-	private SedeHistoric sede;
+	private SedeHistorico sede;
 
 	@Override
 	public Long getId() {
@@ -149,43 +149,43 @@ public class CorporacaoHistoric extends AbstractEntity<CorporacaoHistoric, Long>
 		this.numFuncionarios = numFuncionarios;
 	}
 
-	public InstituicaoHistoric getInstituicao() {
+	public InstituicaoHistorico getInstituicao() {
 		return instituicao;
 	}
 
-	public void setInstituicao(InstituicaoHistoric instituicao) {
+	public void setInstituicao(InstituicaoHistorico instituicao) {
 		this.instituicao = instituicao;
 	}
 
-	public PorteHistoric getPorte() {
+	public PorteHistorico getPorte() {
 		return porte;
 	}
 
-	public void setPorte(PorteHistoric porte) {
+	public void setPorte(PorteHistorico porte) {
 		this.porte = porte;
 	}
 
-	public AtividadeComercialHistoric getAtividadeComercial() {
+	public AtividadeComercialHistorico getAtividadeComercial() {
 		return atividadeComercial;
 	}
 
-	public void setAtividadeComercial(AtividadeComercialHistoric atividadeComercial) {
+	public void setAtividadeComercial(AtividadeComercialHistorico atividadeComercial) {
 		this.atividadeComercial = atividadeComercial;
 	}
 
-	public NaturezaJuridicaHistoric getNaturezaJuridica() {
+	public NaturezaJuridicaHistorico getNaturezaJuridica() {
 		return naturezaJuridica;
 	}
 
-	public void setNaturezaJuridica(NaturezaJuridicaHistoric naturezaJuridica) {
+	public void setNaturezaJuridica(NaturezaJuridicaHistorico naturezaJuridica) {
 		this.naturezaJuridica = naturezaJuridica;
 	}
 
-	public SedeHistoric getSede() {
+	public SedeHistorico getSede() {
 		return sede;
 	}
 
-	public void setSede(SedeHistoric sede) {
+	public void setSede(SedeHistorico sede) {
 		this.sede = sede;
 	}
 

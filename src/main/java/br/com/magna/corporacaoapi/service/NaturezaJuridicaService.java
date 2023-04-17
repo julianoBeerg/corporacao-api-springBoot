@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.NaturezaJuridica;
-import br.com.magna.corporacaoapi.entity.entityHistoric.NaturezaJuridicaHistoric;
-import br.com.magna.corporacaoapi.record.DadosAtualizarNaturezaJuridica;
-import br.com.magna.corporacaoapi.record.DadosCadastrarNaturezaJuridica;
+import br.com.magna.corporacaoapi.entity.entityHistoric.NaturezaJuridicaHistorico;
+import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarNaturezaJuridica;
+import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarNaturezaJuridica;
 import br.com.magna.corporacaoapi.repository.NaturezaJuridicaRepository;
 import jakarta.validation.Valid;
 
@@ -18,23 +18,31 @@ public class NaturezaJuridicaService {
 	@Autowired
 	private NaturezaJuridicaRepository naturezaJuridicaRepository;
 
+	private String dbUser = "Admin";
+
+	private String dbUser2 = "Admin2";
+
 	public NaturezaJuridica cadastrarNaturezaJuridica(DadosCadastrarNaturezaJuridica dados) {
 		NaturezaJuridica naturezaJuridica = new NaturezaJuridica();
 		naturezaJuridica.setCodigoNaturezaJuridica(dados.codigoNaturezaJuridica());
 		naturezaJuridica.setDescricaoNaturezaJuridica(dados.descricaoNaturezaJuridica());
 
-		naturezaJuridica.setUserDatabase("admin");
+		naturezaJuridica.setUserDatabaseCreate(dbUser);
 
-		naturezaJuridica.setTimeStampFirstCreated(ZonedDateTime.now());
+		naturezaJuridica.setUserDatabaseUpdate(dbUser2);
 
-		naturezaJuridica.setTimeStampLastUpdate(ZonedDateTime.now());
+		naturezaJuridica.setTimestampFirstCreated(ZonedDateTime.now());
+
+		naturezaJuridica.setTimestampLastUpdate(ZonedDateTime.now());
+
+		naturezaJuridica.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
 		return naturezaJuridica;
 	}
 
 	public NaturezaJuridica atualizarNaturezaJuridica(@Valid DadosAtualizarNaturezaJuridica dados) {
 
-		NaturezaJuridica naturezaJuridica = new NaturezaJuridica();
+		var naturezaJuridica = naturezaJuridicaRepository.getReferenceById(dados.id());
 
 		if (dados.codigoNaturezaJuridica() != null) {
 			naturezaJuridica.setCodigoNaturezaJuridica(dados.codigoNaturezaJuridica());
@@ -42,29 +50,32 @@ public class NaturezaJuridicaService {
 		if (dados.descricaoNaturezaJuridica() != null) {
 			naturezaJuridica.setDescricaoNaturezaJuridica(dados.descricaoNaturezaJuridica());
 		}
-		
-		naturezaJuridica.setUserDatabase("admin");
 
-		naturezaJuridica.setTimeStampFirstCreated(ZonedDateTime.now());
- 
-		naturezaJuridica.setTimeStampLastUpdate(ZonedDateTime.now());
+		naturezaJuridica.setUserDatabaseCreate(dbUser);
 
-		naturezaJuridicaRepository.save(naturezaJuridica);
+		naturezaJuridica.setUserDatabaseUpdate(dbUser2);
+
+		naturezaJuridica.setTimestampLastUpdate(ZonedDateTime.now());
 
 		return naturezaJuridica;
 	}
 
-	public NaturezaJuridicaHistoric cadastrarNaturezaJuridicaHistorico(NaturezaJuridica dados) {
-		NaturezaJuridicaHistoric naturezaJuridica = new NaturezaJuridicaHistoric();
-		naturezaJuridica.setCodigoNaturezaJuridica(dados.getCodigoNaturezaJuridica());
-		naturezaJuridica.setDescricaoNaturezaJuridica(dados.getDescricaoNaturezaJuridica());
+	public NaturezaJuridicaHistorico cadastrarNaturezaJuridicaHistorico(NaturezaJuridica naturezaJuridica) {
+		NaturezaJuridicaHistorico naturezaJuridicaHistorico = new NaturezaJuridicaHistorico();
 		
-		naturezaJuridica.setUserDatabase("admin");
+		naturezaJuridicaHistorico.setCodigoNaturezaJuridica(naturezaJuridica.getCodigoNaturezaJuridica());
+		naturezaJuridicaHistorico.setDescricaoNaturezaJuridica(naturezaJuridica.getDescricaoNaturezaJuridica());
 
-		naturezaJuridica.setTimeStampFirstCreated(ZonedDateTime.now());
+		naturezaJuridicaHistorico.setUserDatabaseCreate(naturezaJuridica.getUserDatabaseCreate());
 
-		naturezaJuridica.setTimeStampLastUpdate(ZonedDateTime.now());
+		naturezaJuridicaHistorico.setUserDatabaseUpdate(dbUser2);
 
-		return naturezaJuridica;
+		naturezaJuridicaHistorico.setTimestampFirstCreated(naturezaJuridica.getTimestampFirstCreated());
+
+		naturezaJuridicaHistorico.setTimestampLastUpdate(ZonedDateTime.now());
+
+		naturezaJuridicaHistorico.setTimestampTimeZone(ZonedDateTime.now().getZone());
+
+		return naturezaJuridicaHistorico;
 	}
 }

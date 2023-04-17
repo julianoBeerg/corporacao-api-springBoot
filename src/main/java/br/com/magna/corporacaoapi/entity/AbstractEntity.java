@@ -1,5 +1,6 @@
 package br.com.magna.corporacaoapi.entity;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import jakarta.persistence.Column;
@@ -8,49 +9,60 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity<T, ID> {
 
-	@Column(name = "USER_DATABASE", nullable = false)
-	private String userDatabase = "admin";
+	@Column(name = "USER_DATABASE_CREATE")
+	private String userDatabaseCreate;
+	
+	@Column(name = "USER_DATABASE_UPDATE")
+	private String userDatabaseUpdate;
 
-	@Column(name = "TIME_STAMP_FIRST_CREATED", nullable = false)
-	private ZonedDateTime timeStampFirstCreated;
+	@Column(name = "TIMESTAMP_FIRST_CREATED", nullable = false)
+	private ZonedDateTime timestampFirstCreated;
 
-	@Column(name = "TIME_STAMP_LAST_UPDATE", nullable = false)
-	private ZonedDateTime timeStampLastUpdate;
+	@Column(name = "TIMESTAMP_LAST_UPDATE", nullable = false)
+	private ZonedDateTime timestampLastUpdate;
 
-//	@Column(name = "TIME_STAMP_TIME_ZOME", nullable = false)
-//	private ZoneId timeStampTimeZone;
+	@Column(name = "TIMESTAMP_TIME_ZOME")
+	private ZoneId timestampTimeZone;
 
-	public String getUserDatabase() {
-		return userDatabase;
+	public String getUserDatabaseCreate() {
+		return userDatabaseCreate;
 	}
 
-	public void setUserDatabase(String userDatabase) {
-		this.userDatabase = userDatabase;
+	public void setUserDatabaseCreate(String userDatabase) {
+		this.userDatabaseCreate = userDatabase;
 	}
 
-	public ZonedDateTime getTimeStampFirstCreated() {
-		return timeStampFirstCreated;
+	public String getUserDatabaseUpdate() {
+		return userDatabaseUpdate;
 	}
 
-	public void setTimeStampFirstCreated(ZonedDateTime timeStampFirstCreated) {
-		this.timeStampFirstCreated = timeStampFirstCreated;
+	public void setUserDatabaseUpdate(String userDatabaseUpdate) {
+		this.userDatabaseUpdate = userDatabaseUpdate;
 	}
 
-	public ZonedDateTime getTimeStampLastUpdate() {
-		return timeStampLastUpdate;
+	public ZonedDateTime getTimestampFirstCreated() {
+		return timestampFirstCreated;
 	}
 
-	public void setTimeStampLastUpdate(ZonedDateTime timeStampLastUpdate) {
-		this.timeStampLastUpdate = timeStampLastUpdate;
+	public void setTimestampFirstCreated(ZonedDateTime timestampFirstCreated) {
+		this.timestampFirstCreated = timestampFirstCreated;
 	}
 
-//	public ZoneId getTimeStampTimeZone() {
-//		return timeStampTimeZone;
-//	}
-//
-//	public void setTimeStampTimeZone(ZoneId timeStampTimeZone) {
-//		this.timeStampTimeZone = timeStampTimeZone;
-//	}
+	public ZonedDateTime getTimestampLastUpdate() {
+		return timestampLastUpdate;
+	}
+
+	public void setTimestampLastUpdate(ZonedDateTime timestampLastUpdate) {
+		this.timestampLastUpdate = timestampLastUpdate;
+	}
+
+	public ZoneId getTimestampTimeZone() {
+		return timestampTimeZone;
+	}
+
+	public void setTimestampTimeZone(ZoneId timestampTimeZone) {
+		this.timestampTimeZone = timestampTimeZone;
+	}
 
 	public abstract Long getId();
 

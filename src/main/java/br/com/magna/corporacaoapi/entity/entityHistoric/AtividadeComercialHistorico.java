@@ -9,9 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_ATIVIDADE_COMERCIAL_HISTORIC")
+@Table(name = "TB_ATIVIDADE_COMERCIAL_HIST")
 @Entity
-public class AtividadeComercialHistoric extends AbstractEntity<Corporacao, Long> {
+public class AtividadeComercialHistorico extends AbstractEntity<Corporacao, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

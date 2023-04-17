@@ -1,4 +1,4 @@
-package br.com.magna.corporacaoapi.record;
+package br.com.magna.corporacaoapi.record.cadastrarcorporacao;
 
 import java.time.LocalDate;
 

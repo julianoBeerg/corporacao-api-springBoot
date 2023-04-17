@@ -9,13 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@Table(name = "TB_NATUREZA_JURIDICA_HISTORIC")
+@Table(name = "TB_NATUREZA_JURIDICA_HISTORICO")
 @Entity
-public class NaturezaJuridicaHistoric extends AbstractEntity<Corporacao, Long>{
+public class NaturezaJuridicaHistorico extends AbstractEntity<Corporacao, Long> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "PK_ID_NATUREZA_JURIDICA")
+	@Column(name = "PK_ID_NATUREZA_JURIDICA_HIST")
 	private Long id;
 
 	@Column(name = "INT_CODIGO_NATUREZA_JURIDICA", nullable = false)

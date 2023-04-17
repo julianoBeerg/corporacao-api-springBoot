@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Porte;
-import br.com.magna.corporacaoapi.entity.entityHistoric.PorteHistoric;
-import br.com.magna.corporacaoapi.record.DadosAtualizarPorte;
-import br.com.magna.corporacaoapi.record.DadosCadastrarPorte;
+import br.com.magna.corporacaoapi.entity.entityHistoric.PorteHistorico;
+import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarPorte;
+import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarPorte;
 import br.com.magna.corporacaoapi.repository.PorteRepository;
 
 @Service
@@ -17,15 +17,23 @@ public class PorteService {
 	@Autowired
 	private PorteRepository porteRepository;
 
+	private String dbUser = "Admin";
+
+	private String dbUser2 = "Admin2";
+
 	public Porte cadastrarPorte(DadosCadastrarPorte dados) {
 		Porte porte = new Porte();
 		porte.setTipoPorte(dados.tipoPorte());
 
-		porte.setUserDatabase("admin");
+		porte.setUserDatabaseCreate(dbUser);
 
-		porte.setTimeStampFirstCreated(ZonedDateTime.now());
+		porte.setUserDatabaseUpdate(dbUser);
 
-		porte.setTimeStampLastUpdate(ZonedDateTime.now());
+		porte.setTimestampFirstCreated(ZonedDateTime.now());
+
+		porte.setTimestampLastUpdate(ZonedDateTime.now());
+
+		porte.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
 		return porte;
 	}
@@ -37,25 +45,31 @@ public class PorteService {
 		if (dados.tipoPorte() != null) {
 			porte.setTipoPorte(dados.tipoPorte());
 		}
-		porte.setUserDatabase("admin");
 
-		porte.setTimeStampFirstCreated(porte.getTimeStampFirstCreated());
+		porte.setUserDatabaseCreate(dbUser);
 
-		porte.setTimeStampLastUpdate(ZonedDateTime.now());
+		porte.setUserDatabaseUpdate(dbUser2);
+
+		porte.setTimestampLastUpdate(ZonedDateTime.now());
 
 		return porte;
 	}
 
-	public PorteHistoric cadastrarPorteHistorico(Porte dados) {
-		PorteHistoric porte = new PorteHistoric();
-		porte.setTipoPorte(dados.getTipoPorte());
+	public PorteHistorico cadastrarPorteHistorico(Porte porte) {
+		PorteHistorico porteHistorico = new PorteHistorico();
 		
-		porte.setUserDatabase("admin");
+		porteHistorico.setTipoPorte(porte.getTipoPorte());
 
-		porte.setTimeStampFirstCreated(ZonedDateTime.now());
+		porteHistorico.setUserDatabaseCreate(porte.getUserDatabaseCreate());
 
-		porte.setTimeStampLastUpdate(ZonedDateTime.now());
+		porteHistorico.setUserDatabaseUpdate(dbUser2);
 
-		return porte;
+		porteHistorico.setTimestampFirstCreated(porte.getTimestampFirstCreated());
+
+		porteHistorico.setTimestampLastUpdate(ZonedDateTime.now());
+
+		porteHistorico.setTimestampTimeZone(ZonedDateTime.now().getZone());
+
+		return porteHistorico;
 	}
 }

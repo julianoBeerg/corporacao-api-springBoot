@@ -12,8 +12,8 @@ import jakarta.persistence.Table;
 
 @Table(name = "TB_CORPORACAO")
 @Entity
-public class Corporacao extends AbstractEntity<Corporacao, Long>{
- 
+public class Corporacao extends AbstractEntity<Corporacao, Long> {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PK_ID_CORPORACAO")
@@ -22,7 +22,7 @@ public class Corporacao extends AbstractEntity<Corporacao, Long>{
 	@Column(name = "VAR_CNPJ", length = 18, nullable = false, unique = true)
 	private String cnpj;
 
-	@Column(name = "VAR_RAZAO_SOCIAL", nullable = false)
+	@Column(name = "VAR_RAZAO_SOCIAL", nullable = false, unique = true)
 	private String razaoSocial;
 
 	@Column(name = "VAR_NOME_FANTASIA", nullable = false)
@@ -62,16 +62,18 @@ public class Corporacao extends AbstractEntity<Corporacao, Long>{
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_SEDE_ID")
 	private Sede sede;
-	
+
 	@Override
 	public Long getId() {
-		return id; 
+		return id;
 	}
 
 	@Override
 	public Long setId(Long id) {
 		return this.id;
 	}
+	
+	
 
 	public String getCnpj() {
 		return cnpj;

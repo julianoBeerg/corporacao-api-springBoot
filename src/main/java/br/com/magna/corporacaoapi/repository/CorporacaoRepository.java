@@ -10,8 +10,4 @@ public interface CorporacaoRepository extends JpaRepository<Corporacao, Long> {
 	 
 	Page<Corporacao> findAllByCnpjAtivoTrue(Pageable paginacao);
 	
-//	@Query("SELECT c FROM Corporacao c"
-//			+ "WHERE "
-//			+ "lower(c.razaoSocial) LIKE %:razaoSocial%")
-//	Page<Corporacao> acharMusicaPelaRazaoSocial(Pageable paginacao, String razaoSocial);
 }
