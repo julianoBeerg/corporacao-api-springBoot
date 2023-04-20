@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Porte;
 import br.com.magna.corporacaoapi.entity.entityHistoric.PorteHistorico;
-import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarPorte;
-import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarPorte;
 import br.com.magna.corporacaoapi.repository.PorteRepository;
 
 @Service
@@ -21,9 +19,9 @@ public class PorteService {
 
 	private String dbUser2 = "Admin2";
 
-	public Porte cadastrarPorte(DadosCadastrarPorte dados) {
+	public Porte cadastrarPorte(Porte dados) {
 		Porte porte = new Porte();
-		porte.setTipoPorte(dados.tipoPorte());
+		porte.setTipoPorte(dados.getTipoPorte());
 
 		porte.setUserDatabaseCreate(dbUser);
 
@@ -38,12 +36,12 @@ public class PorteService {
 		return porte;
 	}
 
-	public Porte atualizarPorte(DadosAtualizarPorte dados) {
+	public Porte atualizarPorte(Porte dados) {
 
-		var porte = porteRepository.getReferenceById(dados.id());
+		var porte = porteRepository.getReferenceById(dados.getId());
 
-		if (dados.tipoPorte() != null) {
-			porte.setTipoPorte(dados.tipoPorte());
+		if (dados.getTipoPorte() != null) {
+			porte.setTipoPorte(dados.getTipoPorte());
 		}
 
 		porte.setUserDatabaseCreate(dbUser);
@@ -57,7 +55,7 @@ public class PorteService {
 
 	public PorteHistorico cadastrarPorteHistorico(Porte porte) {
 		PorteHistorico porteHistorico = new PorteHistorico();
-		
+
 		porteHistorico.setTipoPorte(porte.getTipoPorte());
 
 		porteHistorico.setUserDatabaseCreate(porte.getUserDatabaseCreate());

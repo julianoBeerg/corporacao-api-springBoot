@@ -49,52 +49,28 @@ public class InstituicaoHistorico extends AbstractEntity<Corporacao, Long> {
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
-	}
-
-	public String getTipoInstituicao() {
-		return tipoInstituicao;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setTipoInstituicao(String tipoInstituicao) {
 		this.tipoInstituicao = tipoInstituicao;
 	}
 
-	public String getFundador() {
-		return fundador;
-	}
-
 	public void setFundador(String fundador) {
 		this.fundador = fundador;
-	}
-
-	public LocalDate getDataFundacao() {
-		return dataFundacao;
 	}
 
 	public void setDataFundacao(LocalDate dataFundacao) {
 		this.dataFundacao = dataFundacao;
 	}
 
-	public String getPresidente() {
-		return presidente;
-	}
-
 	public void setPresidente(String presidente) {
 		this.presidente = presidente;
 	}
 
-	public String getRepresentante() {
-		return representante;
-	}
-
 	public void setRepresentante(String representante) {
 		this.representante = representante;
-	}
-
-	public String getDiretor() {
-		return diretor;
 	}
 
 	public void setDiretor(String diretor) {

@@ -1,6 +1,7 @@
 package br.com.magna.corporacaoapi.service;
 
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Corporacao;
 import br.com.magna.corporacaoapi.entity.entityHistoric.CorporacaoHistorico;
-import br.com.magna.corporacaoapi.record.DadosListarCorporacao;
-import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarCorporacao;
-import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarCorporacao;
+import br.com.magna.corporacaoapi.infra.exception.BadRequestExceptionHandler;
 import br.com.magna.corporacaoapi.repository.AtividadeComercialRepository;
 import br.com.magna.corporacaoapi.repository.CorporacaoRepository;
 import br.com.magna.corporacaoapi.repository.InstituicaoRepository;
@@ -64,31 +63,31 @@ public class CorporacaoService {
 
 	private String dbUser2 = "Admin2";
 
-	public Corporacao cadastrarCorporacao(DadosCadastrarCorporacao dados) {
-		Corporacao corporacao = new Corporacao();
-		corporacao.setCnpj(dados.cnpj());
-		corporacao.setRazaoSocial(dados.razaoSocial());
-		corporacao.setNomeFantasia(dados.nomeFantasia());
-		corporacao.setTipoPublico(dados.tipoPublico());
-		corporacao.setMultinacional(dados.multinacional());
-		corporacao.setFaturamento(dados.faturamento());
-		corporacao.setNumFuncionarios(dados.numFuncionarios());
+	public Corporacao cadastrarCorporacao(Corporacao dados) {
 
-		var instituicao = instituicaoService.cadastrarInstituicao(dados.dadosCadastrarInstituicao());
+		Corporacao corporacao = new Corporacao();
+
+		corporacao.setCnpj(dados.getCnpj());
+		corporacao.setRazaoSocial(dados.getRazaoSocial());
+		corporacao.setNomeFantasia(dados.getNomeFantasia());
+		corporacao.setTipoPublico(dados.getTipoPublico());
+		corporacao.setMultinacional(dados.getMultinacional());
+		corporacao.setFaturamento(dados.getFaturamento());
+		corporacao.setNumFuncionarios(dados.getNumFuncionarios());
+
+		var instituicao = instituicaoService.cadastrarInstituicao(dados.getInstituicao());
 		corporacao.setInstituicao(instituicao);
 
-		var porte = porteService.cadastrarPorte(dados.dadosCadastrarPorte());
+		var porte = porteService.cadastrarPorte(dados.getPorte());
 		corporacao.setPorte(porte);
 
-		var atividadeComercial = atividadeComercialService
-				.cadastrarAtividadeComercial(dados.dadosCadastrarAtividadeComercial());
+		var atividadeComercial = atividadeComercialService.cadastrarAtividadeComercial(dados.getAtividadeComercial());
 		corporacao.setAtividadeComercial(atividadeComercial);
 
-		var naturezaJuridica = naturezaJuridicaService
-				.cadastrarNaturezaJuridica(dados.dadosCadastrarNaturezaJuridica());
+		var naturezaJuridica = naturezaJuridicaService.cadastrarNaturezaJuridica(dados.getNaturezaJuridica());
 		corporacao.setNaturezaJuridica(naturezaJuridica);
 
-		var sede = sedeService.cadastrarSede(dados.dadosCadastrarSede());
+		var sede = sedeService.cadastrarSede(dados.getSede());
 		corporacao.setSede(sede);
 
 		corporacao.setUserDatabaseCreate(dbUser);
@@ -101,45 +100,43 @@ public class CorporacaoService {
 
 		corporacao.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
-		corporacaoRepository.save(corporacao);
-
-		CorporacaoHistorico corporacaoHistoric = cadastrarCorporacaoHistotico(corporacao);
-		corporacaoRepositoryHistoric.save(corporacaoHistoric);
+		Corporacao retorno = corporacaoRepository.save(corporacao);
+		corporacaoRepositoryHistoric.save(cadastrarCorporacaoHistorico(retorno));
 
 		return corporacao;
 	}
 
-	public Corporacao atualizarCorporacao(@Valid DadosAtualizarCorporacao dados) {
+	public Corporacao atualizarCorporacao(@Valid Corporacao dados) {
 
-		var corporacao = corporacaoRepository.getReferenceById(dados.id());
-		CorporacaoHistorico corporacaoHistoric = cadastrarCorporacaoHistotico(corporacao);
+		var corporacao = corporacaoRepository.getReferenceById(dados.getId());
+		CorporacaoHistorico corporacaoHistoric = cadastrarCorporacaoHistorico(corporacao);
 		corporacaoRepositoryHistoric.save(corporacaoHistoric);
 
-		if (dados.nomeFantasia() != null) {
-			corporacao.setNomeFantasia(dados.nomeFantasia());
+		if (dados.getNomeFantasia() != null) {
+			corporacao.setNomeFantasia(dados.getNomeFantasia());
 		}
-		if (dados.tipoPublico() != null) {
-			corporacao.setTipoPublico(dados.tipoPublico());
+		if (dados.getTipoPublico() != null) {
+			corporacao.setTipoPublico(dados.getTipoPublico());
 		}
-		if (dados.multinacional() != null) {
-			corporacao.setMultinacional(dados.multinacional());
+		if (dados.getMultinacional() != null) {
+			corporacao.setMultinacional(dados.getMultinacional());
 		}
-		if (dados.faturamento() != null) {
-			corporacao.setFaturamento(dados.faturamento());
+		if (dados.getFaturamento() != null) {
+			corporacao.setFaturamento(dados.getFaturamento());
 		}
-		if (dados.numFuncionarios() != null) {
-			corporacao.setNumFuncionarios(dados.numFuncionarios());
+		if (dados.getNumFuncionarios() != null) {
+			corporacao.setNumFuncionarios(dados.getNumFuncionarios());
 		}
 
-		instituicaoService.atualizarInstituicao(dados.dadosAtualizarInstituicao());
+		instituicaoService.atualizarInstituicao(dados.getInstituicao());
 
-		porteService.atualizarPorte(dados.dadosAtualizarPorte());
+		porteService.atualizarPorte(dados.getPorte());
 
-		atividadeComercialService.atualizarAtividadeComercial(dados.dadosAtualizarAtividadeComercial());
+		atividadeComercialService.atualizarAtividadeComercial(dados.getAtividadeComercial());
 
-		naturezaJuridicaService.atualizarNaturezaJuridica(dados.dadosAtualizarNaturezaJuridica());
+		naturezaJuridicaService.atualizarNaturezaJuridica(dados.getNaturezaJuridica());
 
-		sedeService.atualizarSede(dados.dadosAtualizarSede());
+		sedeService.atualizarSede(dados.getSede());
 
 		corporacao.setUserDatabaseCreate(dbUser);
 
@@ -152,16 +149,18 @@ public class CorporacaoService {
 		return corporacao;
 	}
 
-	public Page<DadosListarCorporacao> listarCorporacoes(Pageable pageable) {
-		return corporacaoRepository.findAll(pageable).map(DadosListarCorporacao::new);
+	public Page<Corporacao> listarCorporacoes(Pageable pageable) {
+		return corporacaoRepository.findAll(pageable).map(c -> c);
 	}
 
-	public Page<DadosListarCorporacao> listarCnpjAtivo(Pageable pageable) {
-		return corporacaoRepository.findAllByCnpjAtivoTrue(pageable).map(DadosListarCorporacao::new);
+	public Page<Corporacao> listarCnpjAtivo(Pageable pageable) {
+		return corporacaoRepository.findAllByCnpjAtivoTrue(pageable).map(c -> c);
 	}
 
-	public Corporacao listarPorId(Long id) {
-		return corporacaoRepository.getReferenceById(id);
+	public Corporacao listarPorID(Long id) {
+		Optional<Corporacao> get = corporacaoRepository.findById(id).map(corporacao -> corporacao);
+
+		return get.orElseThrow(BadRequestExceptionHandler::new);
 	}
 
 	public void ativarCnpj(Long id) {
@@ -184,7 +183,7 @@ public class CorporacaoService {
 
 	}
 
-	public CorporacaoHistorico cadastrarCorporacaoHistotico(Corporacao corporacao) {
+	public CorporacaoHistorico cadastrarCorporacaoHistorico(Corporacao corporacao) {
 		CorporacaoHistorico corporacaoHistorico = new CorporacaoHistorico();
 
 		corporacaoHistorico.setIdCorporacao(corporacao.getId());
@@ -220,7 +219,6 @@ public class CorporacaoService {
 		corporacaoHistorico.setTimestampTimeZone(ZonedDateTime.now().getZone());
 
 		return corporacaoHistorico;
-
 	}
 
 }

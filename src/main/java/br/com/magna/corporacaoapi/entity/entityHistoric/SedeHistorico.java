@@ -45,60 +45,33 @@ public class SedeHistorico extends AbstractEntity<Corporacao, Long> {
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getPais() {
-		return pais;
-	}
 
 	public void setPais(String pais) {
 		this.pais = pais;
-	}
-
-	public String getUf() {
-		return uf;
 	}
 
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
 
-	public String getCidade() {
-		return cidade;
-	}
-
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
 	}
 
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
 
-	public Integer getNumero() {
-		return numero;
-	}
-
 	public void setNumero(Integer numero) {
 		this.numero = numero;
 	}
 
-	public Integer getCep() {
-		return cep;
-	}
-
 	public void setCep(Integer cep) {
 		this.cep = cep;
-	}
-
-	public String getComplemento() {
-		return complemento;
 	}
 
 	public void setComplemento(String complemento) {

@@ -73,116 +73,56 @@ public class CorporacaoHistorico extends AbstractEntity<CorporacaoHistorico, Lon
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
-	}
-
-	public Long getIdCorporacao() {
-		return idCorporacao;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setIdCorporacao(Long idCorporacao) {
 		this.idCorporacao = idCorporacao;
 	}
 
-	public String getCnpj() {
-		return cnpj;
-	}
-
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
-	}
-
-	public String getRazaoSocial() {
-		return razaoSocial;
 	}
 
 	public void setRazaoSocial(String razaoSocial) {
 		this.razaoSocial = razaoSocial;
 	}
 
-	public String getNomeFantasia() {
-		return nomeFantasia;
-	}
-
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
-	}
-
-	public Boolean getTipoPublico() {
-		return tipoPublico;
 	}
 
 	public void setTipoPublico(Boolean tipoPublico) {
 		this.tipoPublico = tipoPublico;
 	}
 
-	public Boolean getMultinacional() {
-		return multinacional;
-	}
-
 	public void setMultinacional(Boolean multinacional) {
 		this.multinacional = multinacional;
-	}
-
-	public Boolean getCnpjAtivo() {
-		return cnpjAtivo;
-	}
-
-	public void setCnpjAtivo(Boolean cnpjAtivo) {
-		this.cnpjAtivo = cnpjAtivo;
-	}
-
-	public Double getFaturamento() {
-		return faturamento;
 	}
 
 	public void setFaturamento(Double faturamento) {
 		this.faturamento = faturamento;
 	}
 
-	public Integer getNumFuncionarios() {
-		return numFuncionarios;
-	}
-
 	public void setNumFuncionarios(Integer numFuncionarios) {
 		this.numFuncionarios = numFuncionarios;
-	}
-
-	public InstituicaoHistorico getInstituicao() {
-		return instituicao;
 	}
 
 	public void setInstituicao(InstituicaoHistorico instituicao) {
 		this.instituicao = instituicao;
 	}
 
-	public PorteHistorico getPorte() {
-		return porte;
-	}
-
 	public void setPorte(PorteHistorico porte) {
 		this.porte = porte;
-	}
-
-	public AtividadeComercialHistorico getAtividadeComercial() {
-		return atividadeComercial;
 	}
 
 	public void setAtividadeComercial(AtividadeComercialHistorico atividadeComercial) {
 		this.atividadeComercial = atividadeComercial;
 	}
 
-	public NaturezaJuridicaHistorico getNaturezaJuridica() {
-		return naturezaJuridica;
-	}
-
 	public void setNaturezaJuridica(NaturezaJuridicaHistorico naturezaJuridica) {
 		this.naturezaJuridica = naturezaJuridica;
-	}
-
-	public SedeHistorico getSede() {
-		return sede;
 	}
 
 	public void setSede(SedeHistorico sede) {

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Instituicao;
 import br.com.magna.corporacaoapi.entity.entityHistoric.InstituicaoHistorico;
-import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarInstituicao;
-import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarInstituicao;
 import br.com.magna.corporacaoapi.repository.InstituicaoRepository;
 import jakarta.validation.Valid;
 
@@ -22,14 +20,14 @@ public class InstituicaoService {
 
 	private String dbUser2 = "Admin2";
 
-	public Instituicao cadastrarInstituicao(DadosCadastrarInstituicao dados) {
+	public Instituicao cadastrarInstituicao(Instituicao dados) {
 		Instituicao instituicao = new Instituicao();
-		instituicao.setTipoInstituicao(dados.tipoInstituicao());
-		instituicao.setFundador(dados.fundador());
-		instituicao.setDataFundacao(dados.dataFundacao());
-		instituicao.setPresidente(dados.presidente());
-		instituicao.setRepresentante(dados.representante());
-		instituicao.setDiretor(dados.diretor());
+		instituicao.setTipoInstituicao(dados.getTipoInstituicao());
+		instituicao.setFundador(dados.getFundador());
+		instituicao.setDataFundacao(dados.getDataFundacao());
+		instituicao.setPresidente(dados.getPresidente());
+		instituicao.setRepresentante(dados.getRepresentante());
+		instituicao.setDiretor(dados.getDiretor());
 
 		instituicao.setUserDatabaseCreate(dbUser);
 
@@ -44,18 +42,18 @@ public class InstituicaoService {
 		return instituicao;
 	}
 
-	public Instituicao atualizarInstituicao(@Valid DadosAtualizarInstituicao dados) {
+	public Instituicao atualizarInstituicao(@Valid Instituicao dados) {
 
-		var instituicao = instituicaoRepository.getReferenceById(dados.id());
+		var instituicao = instituicaoRepository.getReferenceById(dados.getId());
 
-		if (dados.presidente() != null) {
-			instituicao.setPresidente(dados.presidente());
+		if (dados.getPresidente() != null) {
+			instituicao.setPresidente(dados.getPresidente());
 		}
-		if (dados.representante() != null) {
-			instituicao.setRepresentante(dados.representante());
+		if (dados.getRepresentante() != null) {
+			instituicao.setRepresentante(dados.getRepresentante());
 		}
-		if (dados.diretor() != null) {
-			instituicao.setDiretor(dados.diretor());
+		if (dados.getDiretor() != null) {
+			instituicao.setDiretor(dados.getDiretor());
 		}
 		instituicao.setUserDatabaseCreate(dbUser);
 
@@ -67,6 +65,7 @@ public class InstituicaoService {
 	}
 
 	public InstituicaoHistorico cadastrarInstituicaoHistorico(Instituicao instituicao) {
+
 		InstituicaoHistorico instituicaoHistorico = new InstituicaoHistorico();
 
 		instituicaoHistorico.setTipoInstituicao(instituicao.getTipoInstituicao());

@@ -27,12 +27,8 @@ public class PorteHistorico extends AbstractEntity<Corporacao, Long> {
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
-	}
-
-	public String getTipoPorte() {
-		return tipoPorte;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setTipoPorte(String tipoPorte) {

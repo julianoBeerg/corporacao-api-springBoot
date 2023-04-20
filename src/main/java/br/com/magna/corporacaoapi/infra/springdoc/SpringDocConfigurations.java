@@ -18,7 +18,7 @@ public class SpringDocConfigurations {
 		return new OpenAPI()
 				.components(new Components().addSecuritySchemes("bearer-key",
 						new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
-				.info(new Info().title("Magna Corps").description(
+				.info(new Info().title("Magna Corps API").description(
 						"API Rest da aplicação Magna Corps, contendo as funcionalidades de CRUD de corporações, "
 						+ "com funcionalidade de ativar/desativar CNPJ e fazer consultas")
 						.contact(new Contact().name("Magna Corps - Juliano").email("jnunes@magnasistemas.com").url("https://github.com/julianoBeerg"))

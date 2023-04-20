@@ -30,20 +30,12 @@ public class NaturezaJuridicaHistorico extends AbstractEntity<Corporacao, Long> 
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
-	}
-
-	public Integer getCodigoNaturezaJuridica() {
-		return codigoNaturezaJuridica;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public void setCodigoNaturezaJuridica(Integer codigoNaturezaJuridica) {
 		this.codigoNaturezaJuridica = codigoNaturezaJuridica;
-	}
-
-	public String getDescricaoNaturezaJuridica() {
-		return descricaoNaturezaJuridica;
 	}
 
 	public void setDescricaoNaturezaJuridica(String descricaoNaturezaJuridica) {

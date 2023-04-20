@@ -63,17 +63,16 @@ public class Corporacao extends AbstractEntity<Corporacao, Long> {
 	@JoinColumn(name = "FK_SEDE_ID")
 	private Sede sede;
 
-	@Override
+
+	 @Override
 	public Long getId() {
 		return id;
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
-	
 
 	public String getCnpj() {
 		return cnpj;

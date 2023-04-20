@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.AtividadeComercial;
 import br.com.magna.corporacaoapi.entity.entityHistoric.AtividadeComercialHistorico;
-import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarAtividadeComercial;
-import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarAtividadeComercial;
 import br.com.magna.corporacaoapi.repository.AtividadeComercialRepository;
 import jakarta.validation.Valid;
 
@@ -21,10 +19,10 @@ public class AtividadeComercialService {
 	private String dbUser = "Admin";
 	private String dbUser2 = "Admin2";
 
-	public AtividadeComercial cadastrarAtividadeComercial(DadosCadastrarAtividadeComercial dados) {
+	public AtividadeComercial cadastrarAtividadeComercial(AtividadeComercial dados) {
 		AtividadeComercial atividadeComercial = new AtividadeComercial();
-		atividadeComercial.setCodigoAtividadeComercial(dados.codigoAtividadeComercial());
-		atividadeComercial.setDescricaoAtividadeComercial(dados.descricaoAtividadeComercial());
+		atividadeComercial.setCodigoAtividadeComercial(dados.getCodigoAtividadeComercial());
+		atividadeComercial.setDescricaoAtividadeComercial(dados.getDescricaoAtividadeComercial());
 
 		atividadeComercial.setUserDatabaseCreate(dbUser);
 
@@ -39,15 +37,15 @@ public class AtividadeComercialService {
 		return atividadeComercial;
 	}
 
-	public AtividadeComercial atualizarAtividadeComercial(@Valid DadosAtualizarAtividadeComercial dados) {
+	public AtividadeComercial atualizarAtividadeComercial(@Valid AtividadeComercial dados) {
 
-		var atividadeComercial = atividadeComercialRepository.getReferenceById(dados.id());
+		var atividadeComercial = atividadeComercialRepository.getReferenceById(dados.getId());
 
-		if (dados.codigoAtividadeComercial() != null) {
-			atividadeComercial.setCodigoAtividadeComercial(dados.codigoAtividadeComercial());
+		if (dados.getCodigoAtividadeComercial() != null) {
+			atividadeComercial.setCodigoAtividadeComercial(dados.getCodigoAtividadeComercial());
 		}
-		if (dados.descricaoAtividadeComercial() != null) {
-			atividadeComercial.setDescricaoAtividadeComercial(dados.descricaoAtividadeComercial());
+		if (dados.getDescricaoAtividadeComercial() != null) {
+			atividadeComercial.setDescricaoAtividadeComercial(dados.getDescricaoAtividadeComercial());
 		}
 
 		atividadeComercial.setUserDatabaseCreate(dbUser);

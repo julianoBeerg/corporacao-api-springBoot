@@ -30,20 +30,12 @@ public class AtividadeComercialHistorico extends AbstractEntity<Corporacao, Long
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public Integer getCodigoAtividadeComercial() {
-		return codigoAtividadeComercial;
-	}
-
+ 
 	public void setCodigoAtividadeComercial(Integer codigoAtividadeComercial) {
 		this.codigoAtividadeComercial = codigoAtividadeComercial;
-	}
-
-	public String getDescricaoAtividadeComercial() {
-		return descricaoAtividadeComercial;
 	}
 
 	public void setDescricaoAtividadeComercial(String descricaoAtividadeComercial) {

@@ -43,8 +43,8 @@ public class Sede extends AbstractEntity<Sede, Long> {
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getPais() {

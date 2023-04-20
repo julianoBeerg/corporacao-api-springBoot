@@ -28,8 +28,8 @@ public class NaturezaJuridica extends AbstractEntity<NaturezaJuridica, Long> {
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getCodigoNaturezaJuridica() {

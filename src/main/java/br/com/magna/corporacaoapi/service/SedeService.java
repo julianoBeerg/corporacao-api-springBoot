@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.Sede;
 import br.com.magna.corporacaoapi.entity.entityHistoric.SedeHistorico;
-import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarSede;
-import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarSede;
 import br.com.magna.corporacaoapi.repository.SedeRepository;
 
 @Service
@@ -21,15 +19,15 @@ public class SedeService {
 
 	private String dbUser2 = "Admin2";
 
-	public Sede cadastrarSede(DadosCadastrarSede dados) {
+	public Sede cadastrarSede(Sede dados) {
 		Sede sede = new Sede();
-		sede.setPais(dados.pais());
-		sede.setUf(dados.uf());
-		sede.setCidade(dados.cidade());
-		sede.setLogradouro(dados.logradouro());
-		sede.setNumero(dados.numero());
-		sede.setCep(dados.cep());
-		sede.setComplemento(dados.complemento());
+		sede.setPais(dados.getPais());
+		sede.setUf(dados.getUf());
+		sede.setCidade(dados.getCidade());
+		sede.setLogradouro(dados.getLogradouro());
+		sede.setNumero(dados.getNumero());
+		sede.setCep(dados.getCep());
+		sede.setComplemento(dados.getComplemento());
 
 		sede.setUserDatabaseCreate(dbUser);
 
@@ -44,32 +42,32 @@ public class SedeService {
 		return sede;
 	}
 
-	public Sede atualizarSede(DadosAtualizarSede dados) {
+	public Sede atualizarSede(Sede dados) {
 
-		var sede = sedeRepository.getReferenceById(dados.id());
+		var sede = sedeRepository.getReferenceById(dados.getId());
 
-		if (dados.pais() != null) {
-			sede.setPais(dados.pais());
+		if (dados.getPais() != null) {
+			sede.setPais(dados.getPais());
 		}
-		if (dados.uf() != null) {
-			sede.setUf(dados.uf());
+		if (dados.getUf() != null) {
+			sede.setUf(dados.getUf());
 		}
-		if (dados.cidade() != null) {
-			sede.setCidade(dados.cidade());
+		if (dados.getCidade() != null) {
+			sede.setCidade(dados.getCidade());
 		}
-		if (dados.logradouro() != null) {
-			sede.setLogradouro(dados.logradouro());
+		if (dados.getLogradouro() != null) {
+			sede.setLogradouro(dados.getLogradouro());
 		}
-		if (dados.numero() != null) {
-			sede.setNumero(dados.numero());
+		if (dados.getNumero() != null) {
+			sede.setNumero(dados.getNumero());
 		}
-		if (dados.cep() != null) {
-			sede.setCep(dados.cep());
+		if (dados.getCep() != null) {
+			sede.setCep(dados.getCep());
 		}
-		if (dados.complemento() != null) {
-			sede.setComplemento(dados.complemento());
+		if (dados.getComplemento() != null) {
+			sede.setComplemento(dados.getComplemento());
 		}
-
+		
 		sede.setUserDatabaseCreate(dbUser);
 
 		sede.setUserDatabaseUpdate(dbUser2);

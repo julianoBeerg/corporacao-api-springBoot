@@ -28,8 +28,8 @@ public class AtividadeComercial extends AbstractEntity<AtividadeComercial, Long>
 	}
 
 	@Override
-	public Long setId(Long id) {
-		return this.id;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Integer getCodigoAtividadeComercial() {

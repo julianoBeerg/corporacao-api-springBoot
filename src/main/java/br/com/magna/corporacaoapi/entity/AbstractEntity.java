@@ -9,10 +9,10 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractEntity<T, ID> {
 
-	@Column(name = "USER_DATABASE_CREATE")
+	@Column(name = "USER_ADMIN_CREATE")
 	private String userDatabaseCreate;
 	
-	@Column(name = "USER_DATABASE_UPDATE")
+	@Column(name = "USER_ADMIN_UPDATE")
 	private String userDatabaseUpdate;
 
 	@Column(name = "TIMESTAMP_FIRST_CREATED", nullable = false)
@@ -66,5 +66,5 @@ public abstract class AbstractEntity<T, ID> {
 
 	public abstract Long getId();
 
-	public abstract Long setId(ID id);
+	public abstract void setId(ID id);
 }

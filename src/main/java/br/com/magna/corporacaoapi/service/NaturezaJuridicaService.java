@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.magna.corporacaoapi.entity.NaturezaJuridica;
 import br.com.magna.corporacaoapi.entity.entityHistoric.NaturezaJuridicaHistorico;
-import br.com.magna.corporacaoapi.record.atualizarcorporacao.DadosAtualizarNaturezaJuridica;
-import br.com.magna.corporacaoapi.record.cadastrarcorporacao.DadosCadastrarNaturezaJuridica;
 import br.com.magna.corporacaoapi.repository.NaturezaJuridicaRepository;
 import jakarta.validation.Valid;
 
@@ -22,10 +20,10 @@ public class NaturezaJuridicaService {
 
 	private String dbUser2 = "Admin2";
 
-	public NaturezaJuridica cadastrarNaturezaJuridica(DadosCadastrarNaturezaJuridica dados) {
+	public NaturezaJuridica cadastrarNaturezaJuridica(NaturezaJuridica dados) {
 		NaturezaJuridica naturezaJuridica = new NaturezaJuridica();
-		naturezaJuridica.setCodigoNaturezaJuridica(dados.codigoNaturezaJuridica());
-		naturezaJuridica.setDescricaoNaturezaJuridica(dados.descricaoNaturezaJuridica());
+		naturezaJuridica.setCodigoNaturezaJuridica(dados.getCodigoNaturezaJuridica());
+		naturezaJuridica.setDescricaoNaturezaJuridica(dados.getDescricaoNaturezaJuridica());
 
 		naturezaJuridica.setUserDatabaseCreate(dbUser);
 
@@ -40,15 +38,15 @@ public class NaturezaJuridicaService {
 		return naturezaJuridica;
 	}
 
-	public NaturezaJuridica atualizarNaturezaJuridica(@Valid DadosAtualizarNaturezaJuridica dados) {
+	public NaturezaJuridica atualizarNaturezaJuridica(@Valid NaturezaJuridica dados) {
 
-		var naturezaJuridica = naturezaJuridicaRepository.getReferenceById(dados.id());
+		var naturezaJuridica = naturezaJuridicaRepository.getReferenceById(dados.getId());
 
-		if (dados.codigoNaturezaJuridica() != null) {
-			naturezaJuridica.setCodigoNaturezaJuridica(dados.codigoNaturezaJuridica());
+		if (dados.getCodigoNaturezaJuridica() != null) {
+			naturezaJuridica.setCodigoNaturezaJuridica(dados.getCodigoNaturezaJuridica());
 		}
-		if (dados.descricaoNaturezaJuridica() != null) {
-			naturezaJuridica.setDescricaoNaturezaJuridica(dados.descricaoNaturezaJuridica());
+		if (dados.getDescricaoNaturezaJuridica() != null) {
+			naturezaJuridica.setDescricaoNaturezaJuridica(dados.getDescricaoNaturezaJuridica());
 		}
 
 		naturezaJuridica.setUserDatabaseCreate(dbUser);
@@ -62,7 +60,7 @@ public class NaturezaJuridicaService {
 
 	public NaturezaJuridicaHistorico cadastrarNaturezaJuridicaHistorico(NaturezaJuridica naturezaJuridica) {
 		NaturezaJuridicaHistorico naturezaJuridicaHistorico = new NaturezaJuridicaHistorico();
-		
+
 		naturezaJuridicaHistorico.setCodigoNaturezaJuridica(naturezaJuridica.getCodigoNaturezaJuridica());
 		naturezaJuridicaHistorico.setDescricaoNaturezaJuridica(naturezaJuridica.getDescricaoNaturezaJuridica());
 
